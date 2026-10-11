@@ -28,27 +28,28 @@ CONTENT = {
     "name": ["Jorge Alberto", "Ramos Tellez"],
     "overline": "PRODUCT DESIGNER · CYBERNETICS ENGINEER",
     "role_tag": "Design Engineer",
-    "chips": [("#F24E1E", "UI/UX"), ("#A259FF", "Design Systems"), ("#1ABCFE", "DesignOps"), ("#D97757", "AI-assisted design")],
+    "chips": [("#F24E1E", "UI/UX"), ("#A259FF", "Design Systems"), ("#1ABCFE", "Design Engineering"), ("#D97757", "AI-assisted")],
     "links": [  # (etiqueta, url, glifo). El primero se dibuja como botón principal.
-        ("Email", "mailto:jorgeramos201003@gmail.com", "mail"),
+        # TENTATIVO: cambia la URL cuando tu portafolio esté publicado
+        ("Portfolio", "https://github.com/JorgeRamos-UX/Portafolio-UX", "globe"),
         ("LinkedIn", "https://www.linkedin.com/in/jorge-ramos-tellez", "linkedin"),
-        # ("Portfolio", "https://…", "globe"),  # descomenta cuando tu portafolio esté publicado
     ],
-    "intro": ("I'm a **Product Designer and Cybernetics Engineer** working in the **financial sector**, where I combine "
-              "UX, UI, product thinking and design operations to turn complex problems into clear, scalable experiences."),
+    "intro": ("I'm a **Product Designer and Design Engineer** with a background in **Cybernetics Engineering**. "
+              "I design digital products end to end — research, flows, interfaces and design systems — and use AI "
+              "and code to take ideas from first sketch to something real."),
     "about": [  # (glifo, color, título, descripción, etiquetas)
         ("pen", "#F24E1E", "Product Design & UI/UX",
-         "End-to-end flows, interaction design and high-fidelity interfaces for financial products.",
-         ["Flows", "Interaction", "Hi-fi UI"]),
+         "From problem framing and user flows to polished, high-fidelity interfaces for web and mobile products.",
+         ["Flows", "Interaction", "Hi-fi UI", "Prototyping"]),
         ("components", "#A259FF", "Design Systems & DesignOps",
-         "Components, tokens and variables, plus the processes that let teams scale them.",
-         ["Components", "Tokens", "Variables"]),
+         "Components, tokens and variables, plus the documentation and processes that help teams build consistently at scale.",
+         ["Components", "Tokens", "Variables", "Docs"]),
         ("search", "#1ABCFE", "UX Research & IA",
-         "Research synthesis, information architecture and content structure.",
-         ["Synthesis", "IA", "Content"]),
-        ("sparkle", "#D97757", "AI-assisted Design",
-         "Using AI to speed up research, UX writing, prototyping and documentation.",
-         ["UX writing", "Prototyping", "Docs"]),
+         "Interviews, synthesis and information architecture that turn messy problems into clear structures.",
+         ["Interviews", "Synthesis", "IA"]),
+        ("sparkle", "#D97757", "AI & Design Engineering",
+         "AI-assisted workflows and design-to-code: HTML prototypes, agents and tooling that close the gap between design and build.",
+         ["Agents", "Design-to-code", "Tooling"]),
     ],
     "workflow": [
         ("figma", "Figma", "Design systems, components, variables, prototyping"),
@@ -56,19 +57,30 @@ CONTENT = {
         ("git", "Git", "Versioning tokens, specs and prototypes"),
         ("github", "GitHub", "Handoff, docs and collaboration with devs"),
     ],
-    # lo que viaja de un paso al siguiente en el diagrama del workflow
-    "handoffs": ["frames", "prototype", "commit"],
+    # lo que viaja de un paso al siguiente en el workflow del celular
+    "handoffs": ["frame", "code", "commit"],
+    # en escritorio, un mismo entregable cambia de forma en cada herramienta: (ícono, texto)
+    "artifacts": [("frame", "Onboarding.fig"), ("code", "<Onboarding />"),
+                  ("commit", "a1f3c9e · feat: onboarding"), ("pr", "PR #12 · merged")],
+    # sección «Agentic design system»: el agente construye un componente y pregunta antes de decidir
+    "agent": {"name": "Design system agent", "status": "online · reads tokens.json",
+              "prompt": "Create a primary button for the onboarding screen",
+              "found": "Found 3 tokens in the library: brand/primary-ink, text/on-brand and radius/md.",
+              "question": "Which size should it use?", "options": ["S · 32", "M · 44", "L · 56"], "pick": 1,
+              "done": "Published Button / Primary to the library.", "cta": "Get started"},
     # Tarjetas de proyecto (assets/work-N-*.svg). Vacío = la sección no aparece en el README.
     # Formato: (ilustración: grid|phone|flow, color, etiqueta, título, resultado, url)
     # e.g. ("grid", "#A259FF", "Design system", "Project name", "Adopted by 4 product teams", "https://…")
     "work": [],  # en el README se acomodan 3 por fila en escritorio y 1 por fila en el celular
-    "exploring": ["Product design strategy", "Human-Computer Interaction", "AI + Product Design", "Design-to-code"],
+    "exploring": ["Product design strategy", "Human-Computer Interaction", "Agentic design systems",
+                  "AI + Product Design", "Design-to-code"],
     "quote": "Designing digital products with a *systems mindset*.",  # *…* = texto seleccionado
     "signature": "designed in figma · built with claude · versioned with git",
-    # Pantalla de ejemplo dentro del banner
-    "mock": {"screen": "Transfer", "balance_label": "Available balance", "balance": "$4,280.50",
-             "cta_before": "Submit", "cta": "Send money", "component": "Button / Primary", "token": "brand/primary",
-             "comment": ["“Send money” reads clearer", "than “Submit” here."]},
+    # Pantalla que se construye dentro del banner: de wireframe a alta fidelidad
+    "mock": {"screen": "New project", "title": "Ideas, shipped.", "subtitle": ["From first sketch", "to production-ready."],
+             "tags": [("#F24E1E", "Research"), ("#A259FF", "Design"), ("#1ABCFE", "Code")],
+             "cta_before": "Submit", "cta": "Get started", "component": "Button / Primary", "token": "brand/primary",
+             "comment": ["Try “Get started” —", "“Submit” feels like a form."]},
 }
 
 # -------------------------------------------------------------------- tokens
@@ -305,6 +317,7 @@ GLYPHS = {
     "mail": '<rect x="2" y="4" width="16" height="12" rx="3" stroke="{c}" stroke-width="1.8"/><path d="M3 6l7 5 7-5" stroke="{c}" stroke-width="1.8" stroke-linejoin="round"/>',
     "linkedin": ('<rect x="2" y="2" width="16" height="16" rx="4" fill="{c}"/>'
                  '<path d="M6.5 8.5v5.5M6.5 6v.01M9.5 14V8.5M9.5 11c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6V14" stroke="{bg}" stroke-width="1.7" stroke-linecap="round"/>'),
+    "arrow": '<path d="M4 10h12M11 5l5 5-5 5" stroke="{c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
     "globe": ('<circle cx="10" cy="10" r="7.5" stroke="{c}" stroke-width="1.8"/>'
               '<path d="M2.5 10h15M10 2.5c2.2 2.1 3.2 4.6 3.2 7.5s-1 5.4-3.2 7.5c-2.2-2.1-3.2-4.6-3.2-7.5s1-5.4 3.2-7.5z" stroke="{c}" stroke-width="1.6" stroke-linejoin="round"/>'),
 }
@@ -348,16 +361,24 @@ def rulers(t, h, sel_x, sel_y):
 
 
 def phone(t, px, py):
-    """Pantalla de transferencia de ejemplo, con las capas de diseño encima."""
+    """Pantalla que se construye en vivo: wireframe punteado → el cursor dibuja el hero → texto,
+    etiquetas y botón en alta fidelidad. Todas las piezas viven en coordenadas del teléfono."""
     m = CONTENT["mock"]
     pw, ph = 176, 296
-    rows = [("#1ABCFE", 58, 30), ("#0ACF83", 46, 38)]
-    row_svg = "".join(
-        f'<circle cx="28" cy="{cy}" r="11" fill="{c}" fill-opacity=".9"/>'
-        f'<rect x="46" y="{cy - 8}" width="{a}" height="6" rx="3" fill="{t["fg"]}" fill-opacity=".72"/>'
-        f'<rect x="46" y="{cy + 3}" width="{b}" height="5" rx="2.5" fill="{t["muted"]}" fill-opacity=".55"/>'
-        f'<rect x="130" y="{cy - 3}" width="26" height="6" rx="3" fill="{t["fg"]}" fill-opacity=".72"/>'
-        for (c, a, b), cy in zip(rows, (182, 210)))
+    dash = f'stroke="{t["muted"]}" stroke-opacity=".75" stroke-dasharray="3 3"'
+    # etiquetas pequeñas bajo el subtítulo
+    tags, x = [], 16
+    for color, label in m["tags"]:
+        tgw = tw(label, 8.5, "medium") + 20
+        tags.append((x, tgw, color, label))
+        x += tgw + 4
+    wire = "".join(f'<rect x="{x + .5:.1f}" y="203.5" width="{tgw - 1:.1f}" height="15" rx="7.5" {dash}/>' for x, tgw, _, _ in tags)
+    tag_svg = "".join(
+        f'<rect x="{x + .5:.1f}" y="203.5" width="{tgw - 1:.1f}" height="15" rx="7.5" fill="{t["surface"]}" stroke="{t["border"]}"/>'
+        f'<circle cx="{x + 8:.1f}" cy="211" r="2.5" fill="{color}"/>' + text(x + 13, 214, label, "medium", 8.5, t["fg"])
+        for x, tgw, color, label in tags)
+    dims = "152 × 86"
+    dmw = tw(dims, 9, "semibold") + 10
     comp_w = tw(m["component"], 10, "semibold") + 18
     return f"""
     <g transform="translate({px} {py})">
@@ -365,25 +386,44 @@ def phone(t, px, py):
       <rect x="68" y="10" width="40" height="11" rx="5.5" fill="{t["border"]}"/>
       {text(16, 48, m["screen"], "bold", 14, t["fg"])}
       <circle cx="156" cy="43" r="9" fill="{ACCENT}" fill-opacity=".22"/>
-      <clipPath id="bal"><rect x="12" y="60" width="152" height="72" rx="14"/></clipPath>
-      <g clip-path="url(#bal)">
-        <rect x="12" y="60" width="152" height="72" fill="url(#brand)"/>
-        <circle cx="150" cy="62" r="38" fill="#fff" fill-opacity=".09"/>
-        <circle cx="168" cy="118" r="30" fill="#fff" fill-opacity=".06"/>
+      <g class="wire">
+        <rect x="12.5" y="60.5" width="151" height="85" rx="14" {dash}/>
+        <path d="M18 66L158 140M158 66L18 140" {dash} stroke-width=".8"/>
+        <rect x="16" y="157" width="104" height="13" rx="4" fill="{t["border"]}"/>
+        <rect x="16" y="177" width="80" height="6" rx="3" fill="{t["border"]}"/>
+        <rect x="16" y="189" width="104" height="6" rx="3" fill="{t["border"]}"/>
+        {wire}
+        <rect x="12.5" y="242.5" width="151" height="37" rx="12" {dash}/>
       </g>
-      {text(24, 81, m["balance_label"], "medium", 9.5, "#fff", attrs=' fill-opacity=".8"')}
-      {text(24, 107, m["balance"], "display", 22, "#fff", ls=-.4)}
-      {text(24, 123, "•••• 2481", "mono", 8.5, "#fff", attrs=' fill-opacity=".7"')}
+      <g class="s-hero">
+        <clipPath id="hero"><rect x="12" y="60" width="152" height="86" rx="14"/></clipPath>
+        <g clip-path="url(#hero)">
+          <rect x="12" y="60" width="152" height="86" fill="url(#brand)"/>
+          <circle cx="56" cy="104" r="24" fill="#fff" fill-opacity=".92"/>
+          <rect x="84" y="82" width="40" height="40" rx="10" fill="#1F2328" fill-opacity=".85" transform="rotate(12 104 102)"/>
+          <path d="M126 136L148 96L170 136Z" fill="#fff" fill-opacity=".35"/>
+          <circle cx="142" cy="76" r="5" fill="#fff" fill-opacity=".7"/>
+        </g>
+      </g>
+      <g class="dim">
+        <rect x="{88 - dmw / 2:.1f}" y="149" width="{dmw:.1f}" height="13" rx="3" fill="{SELECT}"/>
+        {text(88, 158.5, dims, "semibold", 9, "#fff", "middle")}
+      </g>
+      <g class="s-text">
+        {text(16, 170, m["title"], "display", 17, t["fg"], ls=-.3)}
+        {"".join(text(16, 184 + i * 12, l, "regular", 9.5, t["muted"]) for i, l in enumerate(m["subtitle"]))}
+      </g>
       <g class="red">
-        <path d="M84 133v14M80 133h8M80 147h8" stroke="{REDLINE}" stroke-width="1.2"/>
-        <rect x="92" y="134" width="20" height="12" rx="3" fill="{REDLINE}"/>
-        {text(102, 143, "16", "bold", 8.5, "#fff", "middle")}
+        <path d="M134 147v10M130 147h8M130 157h8" stroke="{REDLINE}" stroke-width="1.2"/>
+        <rect x="141" y="146" width="18" height="12" rx="3" fill="{REDLINE}"/>
+        {text(150, 155, "12", "bold", 8.5, "#fff", "middle")}
       </g>
-      {text(16, 166, "Recent", "semibold", 10, t["muted"])}
-      {row_svg}
-      <rect x="12" y="242" width="152" height="38" rx="12" fill="{t["fg"]}"/>
-      <g class="cta-old">{text(88, 265, m["cta_before"], "semibold", 12, t["bg"], "middle")}</g>
-      <g class="cta-new">{text(88, 265, m["cta"], "semibold", 12, t["bg"], "middle")}</g>
+      <g class="s-tags">{tag_svg}</g>
+      <g class="s-cta">
+        <rect x="12" y="242" width="152" height="38" rx="12" fill="{t["fg"]}"/>
+        <g class="cta-old">{text(88, 265, m["cta_before"], "semibold", 12, t["bg"], "middle")}</g>
+        <g class="cta-new">{text(88, 265, m["cta"], "semibold", 12, t["bg"], "middle")}</g>
+      </g>
       <rect class="swap" x="10" y="240" width="156" height="42" rx="13" stroke="{ACCENT}" stroke-width="2"/>
       <circle class="tap" cx="100" cy="261" r="14" fill="{SELECT}" fill-opacity=".3"/>
       <rect x="64" y="286" width="48" height="4" rx="2" fill="{t["muted"]}" fill-opacity=".45"/>
@@ -450,42 +490,49 @@ def banner(t):
     # chips de especialidad
     chips, x = [], 64
     for color, label in c["chips"]:
-        cw = tw(label, 13, "medium") + 36
+        cw = tw(label, 12.5, "medium") + 34
         chips.append(f'<rect x="{x + .5:.1f}" y="292.5" width="{cw - 1:.1f}" height="31" rx="15.5" fill="{t["surface"]}" stroke="{t["border"]}"/>'
-                     f'<circle cx="{x + 15:.1f}" cy="308" r="4" fill="{color}"/>' + text(x + 25, 312.5, label, "medium", 13, t["fg"]))
+                     f'<circle cx="{x + 15:.1f}" cy="308" r="4" fill="{color}"/>' + text(x + 24, 312.5, label, "medium", 12.5, t["fg"]))
         x += cw + 8
-    # escenas: 14 s en bucle. Sin animación (reduced motion) todo queda visible y quieto.
+    assert x < 580, "los chips del banner chocan con el teléfono: acorta las etiquetas"
+    # Historia de 14 s: wireframe → Jorge dibuja el hero → aparecen texto, etiquetas y botón →
+    # Claude sugiere «Get started» y el botón cambia. Sin animación (reduced motion) queda el final.
     px, py = 588, 44
     me0, ai0 = (fx + fw - 2, fy + fh - 2), (820, 168)
-    me_redline = (px + 118 - me0[0], py + 136 - me0[1])
-    me_cta = (px + 112 - me0[0], py + 262 - me0[1])
+    rel = lambda x, y: f"translate({px + x - me0[0]:.0f}px,{py + y - me0[1]:.0f}px)"
     ai_pin = (792 - ai0[0], 304 - ai0[1])
+    ease = "cubic-bezier(.45,0,.2,1)"
     css = f"""
     .caret{{animation:blink 1.1s steps(1) infinite}} @keyframes blink{{50%{{opacity:0}}}}
-    .me{{animation:me 14s cubic-bezier(.45,0,.2,1) infinite}}
-    @keyframes me{{0%,8%,90%,100%{{transform:translate(0,0)}}
-      20%,38%{{transform:translate({me_redline[0]}px,{me_redline[1]}px)}}
-      50%,70%{{transform:translate({me_cta[0]}px,{me_cta[1]}px)}}}}
-    .ai{{animation:ai 14s cubic-bezier(.45,0,.2,1) infinite}}
+    .me{{animation:me 14s {ease} infinite}}
+    @keyframes me{{0%,5%,92%,100%{{transform:translate(0,0)}} 12%,14%{{transform:{rel(12, 60)}}}
+      26%,28%{{transform:{rel(164, 146)}}} 34%,40%{{transform:{rel(110, 176)}}} 48%,70%{{transform:{rel(112, 262)}}}}}
+    .s-hero{{animation:hero 14s {ease} infinite;transform-box:fill-box;transform-origin:0 0}}
+    @keyframes hero{{0%,13.9%{{opacity:0;transform:scale(.02)}} 14%{{opacity:1;transform:scale(.02)}}
+      26%,97%{{opacity:1;transform:scale(1)}} 100%{{opacity:0;transform:scale(1)}}}}
+    .wire,.dim,.red,.cta-old,.swap{{opacity:0}}
+    .wire{{animation:wire 14s infinite}} @keyframes wire{{0%,44%{{opacity:1}}50%,97%{{opacity:0}}100%{{opacity:1}}}}
+    .dim{{animation:dim 14s infinite}} @keyframes dim{{0%,15%{{opacity:0}}17%,30%{{opacity:1}}33%,100%{{opacity:0}}}}
+    .s-text{{animation:stext 14s infinite}} @keyframes stext{{0%,30%{{opacity:0;transform:translateY(4px)}}34%,97%{{opacity:1;transform:none}}100%{{opacity:0}}}}
+    .red{{animation:red 14s infinite}} @keyframes red{{0%,33%{{opacity:0}}35%,41%{{opacity:1}}43%,100%{{opacity:0}}}}
+    .s-tags{{animation:stags 14s infinite}} @keyframes stags{{0%,38%{{opacity:0;transform:translateY(4px)}}42%,97%{{opacity:1;transform:none}}100%{{opacity:0}}}}
+    .s-cta{{animation:scta 14s infinite}} @keyframes scta{{0%,44%{{opacity:0}}47%,97%{{opacity:1}}100%{{opacity:0}}}}
+    .ai{{animation:ai 14s {ease} infinite}}
     @keyframes ai{{0%,100%{{transform:translate(0,0)}} 20%{{transform:translate(-8px,22px)}} 40%{{transform:translate(4px,-6px)}}
       56%,88%{{transform:translate({ai_pin[0]}px,{ai_pin[1]}px)}}}}
-    .red{{animation:red 14s infinite}} @keyframes red{{0%,21%,39%,100%{{opacity:0}}23%,37%{{opacity:1}}}}
     .comp{{animation:comp 14s infinite}} @keyframes comp{{0%,51%,94%,100%{{opacity:0}}53%,92%{{opacity:1}}}}
     .tap{{opacity:0;animation:tap 14s infinite;transform-box:fill-box;transform-origin:center}}
     @keyframes tap{{0%,51%{{opacity:0;transform:scale(.4)}}52%{{opacity:1;transform:scale(.4)}}56%,100%{{opacity:0;transform:scale(1.6)}}}}
     .bubble{{animation:bubble 14s infinite}} @keyframes bubble{{0%,58%,96%,100%{{opacity:0}}60%,94%{{opacity:1}}}}
-    .type{{animation:type 14s steps(26) infinite}}
+    .type{{animation:type 14s steps(26) infinite;transform-box:fill-box}}
     @keyframes type{{0%,60%{{transform:translateX(-100%)}}76%,100%{{transform:translateX(0)}}}}
-    .tok{{animation:tok 14s infinite}} @keyframes tok{{0%,4%{{opacity:0}}8%,96%{{opacity:1}}100%{{opacity:0}}}}
-    .type{{transform-box:fill-box}}
-    .cta-old,.swap{{opacity:0}}
+    .tok{{animation:tok 14s infinite}} @keyframes tok{{0%,25%{{opacity:0}}29%,96%{{opacity:1}}100%{{opacity:0}}}}
     .cta-old{{animation:ctaold 14s infinite}} @keyframes ctaold{{0%,76%{{opacity:1}}78%,97%{{opacity:0}}99%,100%{{opacity:1}}}}
     .cta-new{{animation:ctanew 14s infinite}} @keyframes ctanew{{0%,77%{{opacity:0}}79%,96%{{opacity:1}}98%,100%{{opacity:0}}}}
     .swap{{animation:swap 14s infinite}} @keyframes swap{{0%,77%{{opacity:0}}79%{{opacity:1}}88%,100%{{opacity:0}}}}
-    .me,.ai,.red,.comp,.tap,.bubble,.type,.tok,.cta-old,.cta-new,.swap{{animation-delay:-11.5s}}
+    .me,.ai,.s-hero,.wire,.dim,.s-text,.red,.s-tags,.s-cta,.comp,.tap,.bubble,.type,.tok,.cta-old,.cta-new,.swap{{animation-delay:-11.5s}}
     """
-    # sin animación queda el final de la historia: comentario de Claude y el botón ya con «Send money».
-    # El retraso negativo hace que el primer cuadro sea ese mismo estado completo y luego repita la historia.
+    # El retraso negativo hace que el primer cuadro sea la pantalla ya terminada; luego se repite la historia.
     body = f"""
     <defs>
       <pattern id="dots" x="22" y="22" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.2" fill="{t["dot"]}"/></pattern>
@@ -622,129 +669,6 @@ def header(t, num, title, slug, w=W):
     return w, h, body, "", title
 
 
-def about(t, w=W):
-    """Tarjetas de especialidad: 2 columnas en escritorio, 1 en el celular."""
-    cols, gap = (2, 16) if w > 500 else (1, 12)
-    cw = (w - gap * (cols - 1)) / cols
-    pad, size, lh = (24, 15, 23) if cols == 2 else (20, 15, 22)
-    # se mueven unas pocas veces y se quedan quietas: el banner es la única animación continua
-    css = """
-    .ico-pen{animation:pen 3.2s ease-in-out 3}
-    @keyframes pen{0%,100%{transform:translate(0,0)}25%{transform:translate(-2px,1.5px)}50%{transform:translate(1.5px,-1px)}75%{transform:translate(2px,1.5px)}}
-    .cmp{animation:cmp 2.4s ease-in-out 3} @keyframes cmp{0%,100%{opacity:1}50%{opacity:.25}}
-    .ico-search{animation:scan 3.4s ease-in-out 3}
-    @keyframes scan{0%,100%{transform:translate(0,0)}33%{transform:translate(2.5px,-2px)}66%{transform:translate(-2px,1.5px)}}
-    .ico-sparkle{animation:twinkle 2.8s ease-in-out 3;transform-box:fill-box;transform-origin:center}
-    @keyframes twinkle{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(.78) rotate(45deg)}}
-    """
-    wrapped = [wrap(a[3], cw - 2 * pad, "regular", size) for a in CONTENT["about"]]
-    def height(n):  # alto de una tarjeta con n líneas de descripción
-        return pad + 80 + lh * (n - 1) + 37 + 24 + 16
-    row_h = height(max(map(len, wrapped)))  # en 2 columnas todas miden lo mismo
-    out, y = [], 0
-    for i, ((glyph, color, title, _, tags), lines) in enumerate(zip(CONTENT["about"], wrapped)):
-        ch = row_h if cols == 2 else height(len(lines))
-        x = (i % cols) * (cw + gap)
-        if cols == 2:
-            y = (i // 2) * (row_h + gap)
-        title_size = 19 if cols == 2 else 18
-        last = pad + 80 + lh * (len(lines) - 1)
-        div, tag_y = ch - 56 + .5, ch - 40
-        desc = "".join(text(pad, pad + 80 + j * lh, l, "regular", size, t["muted"]) for j, l in enumerate(lines))
-        tint = mix(color, t["surface"], .12)
-        chips, tx = [], pad
-        for tag in tags:
-            tgw = tw(tag, 11.5, "mono") + 20
-            chips.append(f'<rect x="{tx:.1f}" y="{tag_y}" width="{tgw:.1f}" height="24" rx="7" fill="{tint}"/>'
-                         + text(tx + 10, tag_y + 16, tag, "mono", 11.5, ink(color, tint)))
-            tx += tgw + 8
-        number = (text(cw - pad, pad + 26, f"0{i + 1}", "mono", 11, t["muted"], "end")
-                  if pad + 56 + tw(title, title_size, "bold", -.2) < cw - pad - 28 else "")
-        out.append(f"""
-        <g transform="translate({x:.1f} {y})">
-          <rect x=".5" y=".5" width="{cw - 1:.1f}" height="{ch - 1}" rx="16" fill="{t["surface"]}" stroke="{t["border"]}"/>
-          <rect x="0" y="{pad}" width="3" height="40" rx="1.5" fill="{color}"/>
-          <g transform="translate({pad} {pad})"><rect width="40" height="40" rx="11" fill="{color}" fill-opacity=".14"/>
-            <g class="ico-{glyph}">{GLYPHS[glyph].format(c=color)}</g></g>
-          {text(pad + 56, pad + 26, title, "bold", title_size, t["fg"], ls=-.2)}
-          {number}
-          {desc}
-          <path d="M{pad} {div}H{cw - pad:.0f}" stroke="{t["border"]}" stroke-dasharray="2 4"/>
-          {"".join(chips)}
-        </g>""")
-        if cols == 1:
-            y += ch + gap
-    h = 2 * row_h + gap if cols == 2 else y - gap
-    return w, h, "".join(out), css, "About me: " + ", ".join(a[2] for a in CONTENT["about"])
-
-
-def workflow(t, w=W):
-    """Cuatro pasos; un entregable viaja de cada herramienta a la siguiente y la enciende al llegar.
-    En escritorio va en horizontal; en el celular, en vertical."""
-    steps, n = CONTENT["workflow"], len(CONTENT["workflow"])
-    cycle, beat = 6, 1.5  # segundos: ciclo completo y tiempo entre pasos
-    step_ink, pk_ink = ink(ACCENT, t["bg"]), ink(ACCENT, t["surface"])
-    css = [f"""
-    .ring{{opacity:0;animation:ring {cycle}s ease-out infinite;transform-box:fill-box;transform-origin:center}}
-    @keyframes ring{{0%{{opacity:0;transform:scale(.92)}}5%{{opacity:1;transform:scale(1)}}18%,100%{{opacity:0;transform:scale(1.05)}}}}
-    """]
-    out = []
-    if w > 500:
-        h, step = 274, w / n
-        for i in range(n - 1):
-            x0, x1 = step * i + step / 2 + 54, step * (i + 1) + step / 2 - 54
-            out.append(f'<path d="M{x0:.0f} 82H{x1:.0f}" stroke="{t["border"]}" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>'
-                       f'<path d="M{x1 - 7:.0f} 76l6 6-6 6" stroke="{ACCENT}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>')
-            # el paquete sale de detrás de un ícono y se esconde detrás del siguiente; en reposo queda a mitad de camino
-            label = CONTENT["handoffs"][i]
-            pw = tw(label, 10.5, "mono") + 18
-            start = step * i + step / 2 + 44 - pw / 2
-            end = step * (i + 1) + step / 2 - 44 + pw / 2
-            mid = (start + end) / 2
-            css.append(f".pk{i}{{animation:pk{i} {cycle}s cubic-bezier(.5,0,.3,1) {i * beat}s infinite}}"
-                       f"@keyframes pk{i}{{0%{{transform:translateX({start - mid:.0f}px)}}"
-                       f"{beat / cycle * 100:.0f}%,100%{{transform:translateX({end - mid:.0f}px)}}}}")
-            out.append(f'<g class="pk{i}"><rect x="{mid - pw / 2:.1f}" y="71.5" width="{pw:.1f}" height="21" rx="7" '
-                       f'fill="{t["surface"]}" stroke="{ACCENT}"/>' + text(mid, 86, label, "mono", 10.5, pk_ink, "middle") + "</g>")
-        for i, (key, name, desc) in enumerate(steps):
-            cx = step * i + step / 2
-            lines = wrap(desc, step - 20, "regular", 14)
-            out.append(f"""
-            <rect class="ring" style="animation-delay:{i * beat}s" x="{cx - 52:.0f}" y="30" width="104" height="104" rx="28" stroke="{ACCENT}" stroke-width="2"/>
-            <rect x="{cx - 46:.0f}" y="36" width="92" height="92" rx="24" fill="{t["surface"]}" stroke="{t["border"]}"/>
-            <image href="{data_uri(icon(key, t["name"]))}" x="{cx - 30:.0f}" y="52" width="60" height="60"/>
-            {text(cx, 166, f"STEP 0{i + 1}", "mono", 11, step_ink, "middle", ls=1.5)}
-            {text(cx, 193, name, "bold", 19, t["fg"], "middle", ls=-.2)}
-            {"".join(text(cx, 218 + j * 21, l, "regular", 14, t["muted"], "middle") for j, l in enumerate(lines))}""")
-    else:
-        pitch, cx, tx = 124, 38, 92
-        h = pitch * (n - 1) + 100
-        for i in range(n - 1):
-            y0, y1 = i * pitch + 76, (i + 1) * pitch + 2
-            label = CONTENT["handoffs"][i]
-            pw = tw(label, 10.5, "mono") + 18
-            out.append(f'<path d="M{cx} {y0}V{y1 - 4}" stroke="{t["border"]}" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>'
-                       f'<path d="M{cx - 6} {y1 - 10}l6 6 6-6" stroke="{ACCENT}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
-                       f'<rect x="{cx + 14}" y="{(y0 + y1) / 2 - 10:.1f}" width="{pw:.1f}" height="20" rx="7" fill="{t["surface"]}" stroke="{ACCENT}"/>'
-                       + text(cx + 14 + pw / 2, (y0 + y1) / 2 + 4, label, "mono", 10.5, pk_ink, "middle"))
-            # punto que baja de una herramienta a la siguiente (sale y entra por detrás de los íconos)
-            css.append(f".pk{i}{{animation:pkv {cycle}s cubic-bezier(.5,0,.3,1) {i * beat}s infinite}}")
-            out.append(f'<circle class="pk{i}" cx="{cx}" cy="{(y0 + y1) / 2:.1f}" r="4.5" fill="{ACCENT}"/>')
-        span = (pitch - 76 + 2 + 20) / 2
-        css.append(f"@keyframes pkv{{0%{{transform:translateY({-span:.0f}px)}}{beat / cycle * 100:.0f}%,100%{{transform:translateY({span:.0f}px)}}}}")
-        for i, (key, name, desc) in enumerate(steps):
-            y0 = i * pitch
-            lines = wrap(desc, w - tx - 4, "regular", 14)
-            out.append(f"""
-            <rect class="ring" style="animation-delay:{i * beat}s" x="{cx - 38}" y="{y0}" width="76" height="76" rx="22" stroke="{ACCENT}" stroke-width="2"/>
-            <rect x="{cx - 33}" y="{y0 + 5}" width="66" height="66" rx="18" fill="{t["surface"]}" stroke="{t["border"]}"/>
-            <image href="{data_uri(icon(key, t["name"]))}" x="{cx - 21}" y="{y0 + 17}" width="42" height="42"/>
-            {text(tx, y0 + 16, f"STEP 0{i + 1}", "mono", 10.5, step_ink, ls=1.5)}
-            {text(tx, y0 + 40, name, "bold", 18, t["fg"], ls=-.2)}
-            {"".join(text(tx, y0 + 62 + j * 20, l, "regular", 14, t["muted"]) for j, l in enumerate(lines))}""")
-    return w, h, "".join(out), "".join(css), "Workflow: " + " → ".join(f"{s[1]} ({s[2]})" for s in steps)
-
-
 def thumb(kind, color, w, h):
     """Mini ilustración abstracta para la tarjeta de proyecto."""
     s = 'fill="#fff"'
@@ -792,142 +716,399 @@ def work_card(t, i):
     return w, h, body, "", f"{title} — {tag}: {outcome}"
 
 
-def exploring(t, w=W):
-    css = (".live{animation:live 2s ease-out 4 both;transform-box:fill-box;transform-origin:center}"
-           "@keyframes live{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(2.6)}}")
-    size = 14 if w > 500 else 13
-    rows = flow_chips(CONTENT["exploring"], w, size, gap=10, pad=46)
-    out, k = [], 0
-    for r, row in enumerate(rows):
-        x0 = (w - (row[-1][0] + row[-1][1])) / 2  # cada fila centrada
-        y = 10 + r * 46
-        for x, cw, label in row:
-            x += x0
-            k += 1
-            out.append(f"""
-            <rect x="{x + .5:.1f}" y="{y + .5}" width="{cw - 1:.1f}" height="35" rx="17.5" fill="{t["surface"]}" stroke="{t["border"]}"/>
-            <circle class="live" style="animation-delay:{(k - 1) * .5:.1f}s" cx="{x + 20:.1f}" cy="{y + 18}" r="4" fill="{ACCENT}"/>
-            <circle cx="{x + 20:.1f}" cy="{y + 18}" r="4" fill="{ACCENT}"/>
-            {text(x + 32, y + 23, label, "medium", size, t["fg"])}""")
-    return w, 10 + len(rows) * 46, "".join(out), css, "Currently exploring: " + ", ".join(CONTENT["exploring"])
-
-
-def swatch_list(t):
-    """Colores de la sección de tokens: (nombre, valor, contra qué se mide su contraste).
-    brand/primary-ink existe para llevar texto blanco en los botones, así que se mide contra blanco."""
-    canvas = ("canvas", t["bg"])
-    return [("brand/primary", ACCENT, canvas), ("brand/primary-ink", ink(ACCENT, "#FFFFFF"), ("white", "#FFFFFF")),
-            ("figma/select", SELECT, canvas), ("figma/component", COMPONENT, canvas),
-            ("figma/redline", REDLINE, canvas), ("text/primary", t["fg"], canvas)]
-
-
 def redline_pill(cx, cy, s):
     pw = tw(s, 9.5, "bold") + 10
     return (f'<rect x="{cx - pw / 2:.1f}" y="{cy - 7}" width="{pw:.1f}" height="14" rx="3" fill="{REDLINE}"/>'
             + text(cx, cy + 3.5, s, "bold", 9.5, "#fff", "middle"))
 
 
-def type_panel(t, pw):
-    pad = 20
-    out = [text(pad, pad + 12, "TYPE SCALE", "mono", 11, t["muted"], ls=1.5)]
-    rows = [("display", 56, -1.6, CONTENT["name"][0].split()[0]), ("bold", 24, -.4, "About me"),
-            ("regular", 15, 0, "Clear, scalable experiences"), ("mono", 12, 0, CONTENT["mock"]["token"])]
-    y = pad + 32
-    for k, (font, size, ls, sample) in enumerate(rows):
-        family, weight, _ = FONTS[font]
-        base = y + size * .8 + 8
-        out.append(text(pad, base, sample, font, size, t["fg"], ls=ls))
-        out.append(text(pw - pad, base, f"{size} · {family} {weight}", "mono", 10.5, t["muted"], "end"))
-        y = base + 14
-        if k < len(rows) - 1:
-            out.append(f'<path d="M{pad} {y + .5}H{pw - pad:.0f}" stroke="{t["border"]}" stroke-dasharray="2 4"/>')
-            y += 10
-    return "".join(out), y + pad - 4
 
 
-def anatomy_panel(t, pw):
-    """El botón principal del perfil, ampliado, con medidas de Figma y los tokens que usa."""
-    pad, k = 20, 1.75
-    label, _, glyph = CONTENT["links"][0]
-    bw, bh, bbody, _, _ = button(t, label, glyph, True)
-    comp = "Button / Primary"
-    cw = tw(comp, 10, "semibold") + 18
-    out = [text(pad, pad + 12, "COMPONENT ANATOMY", "mono", 11, t["muted"], ls=1.5),
-           f'<rect x="{pad}" y="{pad + 24}" width="{cw:.0f}" height="15" rx="4" fill="{COMPONENT}"/>',
-           diamond(pad + 3, pad + 26.5, 10, "#fff"), text(pad + 16, pad + 34.5, comp, "semibold", 10, "#fff")]
+
+def about(t, w=W):
+    """Panel de Figma: a la izquierda las capas (una por especialidad) y a la derecha el inspector de la
+    capa seleccionada. La selección avanza sola cada 4 s; sin animación queda la primera."""
+    items = CONTENT["about"]
+    n, beat = len(items), 4
+    cycle, p = n * beat, 100 / n
+    small = w < 500
+    pad, row_h = 20, 44
+    lw = w if small else 296
+    iw = w if small else w - lw - 16
+    css = (f".it,.hl{{opacity:0;animation:it {cycle}s infinite}}"
+           f"@keyframes it{{0%{{opacity:0}}1.5%,{p - 1.5:.1f}%{{opacity:1}}{p:.1f}%,100%{{opacity:0}}}}"
+           f".sg{{transform:scaleX(0);transform-box:fill-box;transform-origin:0 50%;animation:sg {cycle}s linear infinite}}"
+           f"@keyframes sg{{0%{{transform:scaleX(0)}}{p:.1f}%{{transform:scaleX(1)}}{p + .01:.2f}%,100%{{transform:scaleX(0)}}}}"
+           "@media (prefers-reduced-motion: reduce){.it0,.hl0{opacity:1}}")
+    delay = lambda i: f"animation-delay:{i * beat - cycle}s"  # negativo: el ciclo ya está en marcha al cargar
+    desc_w = iw - 2 * pad
+    wrapped = [wrap(a[3], desc_w, "regular", 15) for a in items]
+    tag_rows = [flow_chips(a[4], desc_w, 11.5, "mono", 8, 20) for a in items]
+    ih = max(pad + 104 + 23 * (len(l) - 1) + 46 + len(r) * 34 + pad - 8 for l, r in zip(wrapped, tag_rows))
+    lh = pad + 54 + n * row_h + 6
+    if not small:
+        ih = lh = max(ih, lh)
+    # capas
+    lp = [f'<rect x=".5" y=".5" width="{lw - 1}" height="{lh - 1}" rx="16" fill="{t["surface"]}" stroke="{t["border"]}"/>',
+          text(pad, pad + 12, "LAYERS", "mono", 11, t["muted"], ls=1.5),
+          f'<path d="M{pad + 1} {pad + 31}h11M{pad + 1} {pad + 37}h11M{pad + 4} {pad + 28}v12M{pad + 9} {pad + 28}v12" '
+          f'stroke="{t["muted"]}" stroke-width="1.3"/>',
+          text(pad + 22, pad + 39, " ".join(CONTENT["name"]), "semibold", 13, t["fg"]),
+          f'<path d="M{pad + 6} {pad + 48}V{pad + 54 + (n - 1) * row_h + 19}" stroke="{t["border"]}"/>']
+    for i, (glyph, color, title, _, _) in enumerate(items):
+        y = pad + 54 + i * row_h
+        lp.append(f'<rect class="hl hl{i}" style="{delay(i)}" x="8" y="{y}" width="{lw - 16}" height="{row_h - 6}" rx="8" '
+                  f'fill="{SELECT}" fill-opacity=".16"/>'
+                  f'<path d="M{pad + 6} {y + 19}h8" stroke="{t["border"]}"/>'
+                  f'<g transform="translate({pad + 16} {y + 8})"><rect width="22" height="22" rx="6" fill="{color}" fill-opacity=".16"/>'
+                  f'<g transform="scale(.55)">{GLYPHS[glyph].format(c=color)}</g></g>'
+                  + text(pad + 48, y + 24, title, "medium", 13.5, t["fg"]))
+    # inspector
+    ix, iy = (0, lh + 12) if small else (lw + 16, 0)
+    seg = 28
+    ip = [f'<rect x=".5" y=".5" width="{iw - 1}" height="{ih - 1}" rx="16" fill="{t["surface"]}" stroke="{t["border"]}"/>',
+          text(pad, pad + 12, "INSPECT", "mono", 11, t["muted"], ls=1.5)]
+    for i in range(n):
+        sx = iw - pad - n * seg - (n - 1) * 4 + i * (seg + 4)
+        ip.append(f'<rect x="{sx}" y="{pad + 5}" width="{seg}" height="4" rx="2" fill="{t["border"]}"/>'
+                  f'<rect class="sg" style="{delay(i)}" x="{sx}" y="{pad + 5}" width="{seg}" height="4" rx="2" fill="{ACCENT}"/>')
+    for i, ((glyph, color, title, _, tags), lines, rows) in enumerate(zip(items, wrapped, tag_rows)):
+        tint = mix(color, t["surface"], .12)
+        size = 22 if pad + 60 + tw(title, 22, "bold", -.3) < iw - pad else 18
+        last = pad + 104 + 23 * (len(lines) - 1)
+        chips = []
+        for r, row in enumerate(rows):
+            for x, cw, tag in row:
+                y = last + 46 + r * 34
+                chips.append(f'<rect x="{pad + x:.1f}" y="{y}" width="{cw:.1f}" height="26" rx="7" fill="{tint}"/>'
+                             + text(pad + x + 10, y + 17, tag, "mono", 11.5, ink(color, tint)))
+        ip.append(f"""
+        <g class="it it{i}" style="{delay(i)}">
+          <g transform="translate({pad} {pad + 28})"><rect width="44" height="44" rx="12" fill="{color}" fill-opacity=".14"/>
+            <g transform="translate(2 2)">{GLYPHS[glyph].format(c=color)}</g></g>
+          {text(pad + 60, pad + 44, f"LAYER 0{i + 1}", "mono", 10.5, t["muted"], ls=1.2)}
+          {text(pad + 60, pad + 66, title, "bold", size, t["fg"], ls=-.3)}
+          {"".join(text(pad, pad + 104 + j * 23, l, "regular", 15, t["muted"]) for j, l in enumerate(lines))}
+          {text(pad, last + 30, "PROPERTIES", "mono", 10.5, t["muted"], ls=1.2)}
+          {"".join(chips)}
+        </g>""")
+    body = f'<g>{"".join(lp)}</g><g transform="translate({ix} {iy})">{"".join(ip)}</g>'
+    h = lh + 12 + ih if small else lh
+    return w, h, body, css, "About me: " + "; ".join(f"{a[2]} — {a[3]}" for a in items)
+
+
+def workflow(t, w=W):
+    """Un mismo entregable recorre las cuatro herramientas y cambia de forma en cada una:
+    frame → código → commit → PR. En el celular se usa la versión vertical."""
+    if w <= 500:
+        return workflow_vertical(t, w)
+    steps, n = CONTENT["workflow"], len(CONTENT["workflow"])
+    cycle, beat = 8, 2
+    step = w / n
+    cxs = [step * i + step / 2 for i in range(n)]
+    ty, tile = 20, 92
+    cy = ty + tile / 2
+    L = cxs[-1] - cxs[0]
+    ease = "cubic-bezier(.6,0,.2,1)"
+    stops = lambda f: (f"0%,17.5%{{{f(0)}}}25%,42.5%{{{f(1)}}}50%,67.5%{{{f(2)}}}75%,92%{{{f(3)};opacity:1}}"
+                       f"96%{{{f(3)};opacity:0}}98%{{{f(0)};opacity:0}}100%{{{f(0)};opacity:1}}")
+    arts = CONTENT["artifacts"]
+    cw = max(tw(s, 10.5, "mono") for _, s in arts) + 46
+    css = [f"""
+    .ring{{opacity:0;animation:ring {cycle}s ease-out infinite;transform-box:fill-box;transform-origin:center}}
+    @keyframes ring{{0%{{opacity:0;transform:scale(.92)}}5%{{opacity:1;transform:scale(1)}}18%,100%{{opacity:0;transform:scale(1.05)}}}}
+    .rail{{stroke-dasharray:{L:.0f} {L:.0f};animation:rail {cycle}s {ease} infinite}}
+    @keyframes rail{{{stops(lambda i: f"stroke-dashoffset:{L - i * step:.0f}")}}}
+    .art{{transform:translateX({3 * step:.0f}px);animation:art {cycle}s {ease} infinite}}
+    @keyframes art{{{stops(lambda i: f"transform:translateX({i * step:.0f}px)")}}}
+    .av0,.av1,.av2{{opacity:0}}
+    .av0{{animation:av0 {cycle}s infinite}}@keyframes av0{{0%,19%{{opacity:1}}23%,96%{{opacity:0}}97%,100%{{opacity:1}}}}
+    .av1{{animation:av1 {cycle}s infinite}}@keyframes av1{{0%,19%{{opacity:0}}23%,44%{{opacity:1}}48%,100%{{opacity:0}}}}
+    .av2{{animation:av2 {cycle}s infinite}}@keyframes av2{{0%,44%{{opacity:0}}48%,69%{{opacity:1}}73%,100%{{opacity:0}}}}
+    .av3{{animation:av3 {cycle}s infinite}}@keyframes av3{{0%,69%{{opacity:0}}73%,96%{{opacity:1}}97%,100%{{opacity:0}}}}
+    """]
+    green = ink("#1F883D", t["raised"], 3)
+    icons = {
+        "frame": f'<path d="M-5-2h10M-5 2h10M-2-5v10M2-5v10" stroke="{SELECT}" stroke-width="1.4"/>',
+        "code": text(0, 3.5, "</>", "mono", 10, ink(ACCENT, t["raised"]), "middle"),
+        "commit": f'<path d="M-9 0h5M4 0h5" stroke="{t["muted"]}" stroke-width="1.4"/><circle r="3.5" fill="{t["raised"]}" stroke="{t["fg"]}" stroke-width="1.5"/>',
+        "pr": f'<circle r="7" fill="{green}"/><path d="M-3 0l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
+    }
+    variants = "".join(f'<g class="av{i}"><g transform="translate(16 18)">{icons[kind]}</g>'
+                       + text(32, 22, label, "mono", 10.5, t["fg"]) + "</g>" for i, (kind, label) in enumerate(arts))
+    out = [f'<path d="M{cxs[0]:.0f} {cy}H{cxs[-1]:.0f}" stroke="{t["border"]}" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>',
+           f'<path class="rail" d="M{cxs[0]:.0f} {cy}H{cxs[-1]:.0f}" stroke="{ACCENT}" stroke-width="2" stroke-linecap="round"/>']
+    for i, (key, name, desc) in enumerate(steps):
+        cx = cxs[i]
+        out.append(f'<rect class="ring" style="animation-delay:{i * beat}s" x="{cx - 52:.0f}" y="{ty - 6}" width="104" height="104" rx="28" stroke="{ACCENT}" stroke-width="2"/>'
+                   f'<rect x="{cx - 46:.0f}" y="{ty}" width="92" height="92" rx="24" fill="{t["surface"]}" stroke="{t["border"]}"/>'
+                   f'<image href="{data_uri(icon(key, t["name"]))}" x="{cx - 30:.0f}" y="{ty + 16}" width="60" height="60"/>')
+    ay = ty + tile + 18
+    out.append(f"""
+    <g transform="translate({cxs[0] - cw / 2:.1f} {ay})"><g class="art">
+      <path d="M{cw / 2 - 6:.1f} .5l6-6 6 6" fill="{t["raised"]}" stroke="{ACCENT}"/>
+      <rect x=".5" y=".5" width="{cw - 1:.1f}" height="35" rx="10" fill="{t["raised"]}" stroke="{ACCENT}"/>
+      <path d="M{cw / 2 - 5:.1f} 1.5h10" stroke="{t["raised"]}" stroke-width="2"/>
+      {variants}
+    </g></g>""")
+    lines = [wrap(desc, step - 20, "regular", 14) for _, _, desc in steps]
+    ly = ay + 36 + 34
+    for i, ((key, name, desc), ls) in enumerate(zip(steps, lines)):
+        cx = cxs[i]
+        out.append(text(cx, ly, f"STEP 0{i + 1}", "mono", 11, ink(ACCENT, t["bg"]), "middle", ls=1.5)
+                   + text(cx, ly + 27, name, "bold", 19, t["fg"], "middle", ls=-.2)
+                   + "".join(text(cx, ly + 52 + j * 21, l, "regular", 14, t["muted"], "middle") for j, l in enumerate(ls)))
+    h = ly + 52 + 21 * (max(map(len, lines)) - 1) + 10
+    return w, round(h), "".join(out), "".join(css), "Workflow: " + " → ".join(f"{s[1]} ({s[2]})" for s in steps)
+
+
+def workflow_vertical(t, w):
+    """Versión del celular: los pasos en columna y un punto que baja de una herramienta a la siguiente."""
+    steps, n = CONTENT["workflow"], len(CONTENT["workflow"])
+    cycle, beat = 6, 1.5
+    step_ink, pk_ink = ink(ACCENT, t["bg"]), ink(ACCENT, t["surface"])
+    css = [f"""
+    .ring{{opacity:0;animation:ring {cycle}s ease-out infinite;transform-box:fill-box;transform-origin:center}}
+    @keyframes ring{{0%{{opacity:0;transform:scale(.92)}}5%{{opacity:1;transform:scale(1)}}18%,100%{{opacity:0;transform:scale(1.05)}}}}
+    """]
+    out = []
+    pitch, cx, tx = 124, 38, 92
+    h = pitch * (n - 1) + 100
+    for i in range(n - 1):
+        y0, y1 = i * pitch + 76, (i + 1) * pitch + 2
+        label = CONTENT["handoffs"][i]
+        pw = tw(label, 10.5, "mono") + 18
+        out.append(f'<path d="M{cx} {y0}V{y1 - 4}" stroke="{t["border"]}" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>'
+                   f'<path d="M{cx - 6} {y1 - 10}l6 6 6-6" stroke="{ACCENT}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+                   f'<rect x="{cx + 14}" y="{(y0 + y1) / 2 - 10:.1f}" width="{pw:.1f}" height="20" rx="7" fill="{t["surface"]}" stroke="{ACCENT}"/>'
+                   + text(cx + 14 + pw / 2, (y0 + y1) / 2 + 4, label, "mono", 10.5, pk_ink, "middle"))
+        # punto que baja de una herramienta a la siguiente (sale y entra por detrás de los íconos)
+        css.append(f".pk{i}{{animation:pkv {cycle}s cubic-bezier(.5,0,.3,1) {i * beat}s infinite}}")
+        out.append(f'<circle class="pk{i}" cx="{cx}" cy="{(y0 + y1) / 2:.1f}" r="4.5" fill="{ACCENT}"/>')
+    span = (pitch - 76 + 2 + 20) / 2
+    css.append(f"@keyframes pkv{{0%{{transform:translateY({-span:.0f}px)}}{beat / cycle * 100:.0f}%,100%{{transform:translateY({span:.0f}px)}}}}")
+    for i, (key, name, desc) in enumerate(steps):
+        y0 = i * pitch
+        lines = wrap(desc, w - tx - 4, "regular", 14)
+        out.append(f"""
+        <rect class="ring" style="animation-delay:{i * beat}s" x="{cx - 38}" y="{y0}" width="76" height="76" rx="22" stroke="{ACCENT}" stroke-width="2"/>
+        <rect x="{cx - 33}" y="{y0 + 5}" width="66" height="66" rx="18" fill="{t["surface"]}" stroke="{t["border"]}"/>
+        <image href="{data_uri(icon(key, t["name"]))}" x="{cx - 21}" y="{y0 + 17}" width="42" height="42"/>
+        {text(tx, y0 + 16, f"STEP 0{i + 1}", "mono", 10.5, step_ink, ls=1.5)}
+        {text(tx, y0 + 40, name, "bold", 18, t["fg"], ls=-.2)}
+        {"".join(text(tx, y0 + 62 + j * 20, l, "regular", 14, t["muted"]) for j, l in enumerate(lines))}""")
+    return w, h, "".join(out), "".join(css), "Workflow: " + " → ".join(f"{s[1]} ({s[2]})" for s in steps)
+
+
+def agentic(t, w=W):
+    """Un agente del design system construye un componente con tokens reales y pregunta antes de decidir.
+    16 s en bucle; el primer cuadro (y la versión sin animación) es el componente ya publicado."""
+    a = CONTENT["agent"]
+    small = w < 500
+    cycle, delay, pad = 16, -13.4, 18
+    cpw = w if small else 356
+    cvw = w if small else w - cpw - 16
+    css = []
+
+    def anim(cls, frames, timing="ease-out"):
+        css.append(f".{cls}{{animation:{cls} {cycle}s {timing} {delay}s infinite}}@keyframes {cls}{{{frames}}}")
+
+    def appear(cls, at, end=94):
+        anim(cls, f"0%,{at - 2}%{{opacity:0;transform:translateY(6px)}}{at}%,{end}%{{opacity:1;transform:none}}"
+                  f"{end + 3}%,100%{{opacity:0;transform:none}}")
+
+    # ------------------------------------------------------------- chat
+    size, lh = 12.5, 18
+    bmax = cpw - 2 * pad - 52
+
+    def bubble(y, lines, right=False, lead=0):
+        bw = max(tw(l, size, "regular") for l in lines) + 24 + lead
+        bh = lh * len(lines) + 16
+        bx = cpw - pad - bw if right else pad + 30
+        fill = mix(SELECT, t["surface"], .18) if right else t["raised"]
+        svg_ = (f'<rect x="{bx:.1f}" y="{y}" width="{bw:.1f}" height="{bh}" rx="12" fill="{fill}" stroke="{t["border"]}"/>'
+                + "".join(text(bx + 12 + lead, y + 21 + j * lh, l, "regular", size, t["fg"]) for j, l in enumerate(lines)))
+        if not right:  # avatar del agente
+            svg_ += f'<circle cx="{pad + 11}" cy="{y + 15}" r="11" fill="{ACCENT}"/>' + claude_mark(pad + 11, y + 15, 13)
+        return svg_, bh, bx
+
+    chat = [f'<circle cx="{pad + 14}" cy="{pad + 14}" r="14" fill="{ACCENT}"/>', claude_mark(pad + 14, pad + 14, 17),
+            text(pad + 36, pad + 11, a["name"], "semibold", 13.5, t["fg"]),
+            f'<circle cx="{pad + 40}" cy="{pad + 24}" r="3" fill="{ink("#1F883D", t["surface"], 3)}"/>',
+            text(pad + 48, pad + 27.5, a["status"], "mono", 10, t["muted"]),
+            f'<path d="M{pad} {pad + 44.5}H{cpw - pad}" stroke="{t["border"]}"/>']
+    y = pad + 60
+    m1, h1, _ = bubble(y, wrap(a["prompt"], bmax, "regular", size), right=True)
+    chat.append(f'<g class="m1">{m1}</g>')
+    y += h1 + 12
+    dots = "".join(f'<circle class="dt" style="animation-delay:{k * .15:.2f}s" cx="{pad + 44 + k * 9}" cy="{y + 15}" r="2.5" fill="{t["muted"]}"/>'
+                   for k in range(3))
+    chat.append(f'<g class="dots"><rect x="{pad + 30}" y="{y}" width="46" height="30" rx="12" fill="{t["raised"]}" stroke="{t["border"]}"/>'
+                f'<circle cx="{pad + 11}" cy="{y + 15}" r="11" fill="{ACCENT}"/>{claude_mark(pad + 11, y + 15, 13)}{dots}</g>')
+    m2, h2, _ = bubble(y, wrap(a["found"], bmax, "regular", size))
+    chat.append(f'<g class="m2">{m2}</g>')
+    y += h2 + 12
+    m3, h3, bx3 = bubble(y, wrap(a["question"], bmax, "regular", size))
+    oy = y + h3 + 8
+    opts, ox = [], bx3
+    for i, o in enumerate(a["options"]):
+        ow = tw(o, 11, "mono") + 22
+        opts.append((ox, ow, o))
+        ox += ow + 6
+    chips = "".join(f'<rect x="{x + .5:.1f}" y="{oy + .5}" width="{ow - 1:.1f}" height="25" rx="12.5" fill="{t["surface"]}" stroke="{t["border"]}"/>'
+                    + text(x + ow / 2, oy + 17, o, "mono", 11, t["fg"], "middle") for x, ow, o in opts)
+    chat.append(f'<g class="m3">{m3}{chips}</g>')
+    px_, pw_, po = opts[a["pick"]]
+    tint = mix(ACCENT, t["surface"], .16)
+    chat.append(f'<g class="pick"><rect x="{px_ + .5:.1f}" y="{oy + .5}" width="{pw_ - 1:.1f}" height="25" rx="12.5" fill="{tint}" stroke="{ACCENT}"/>'
+                + text(px_ + pw_ / 2, oy + 17, po, "mono", 11, ink(ACCENT, tint), "middle") + "</g>")
+    tap = (px_ + pw_ / 2, oy + 13)
+    chat.append(f'<circle class="ctap" cx="{tap[0]:.1f}" cy="{tap[1]}" r="14" fill="{SELECT}" fill-opacity=".3"/>')
+    y = oy + 25 + 12
+    green = ink("#1F883D", t["raised"], 3)
+    m4, h4, bx4 = bubble(y, wrap(a["done"], bmax - 20, "regular", size), lead=20)
+    m4 += (f'<circle cx="{bx4 + 19:.1f}" cy="{y + 16}" r="7" fill="{green}"/>'
+           f'<path d="M{bx4 + 16:.1f} {y + 16}l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>')
+    chat.append(f'<g class="m4">{m4}</g>')
+    chat_h = y + h4 + pad
+
+    # ----------------------------------------------------------- lienzo
+    label = a["cta"]
+    lw = tw(label, 14, "semibold")
+    bw, bh = round(18 + lw + 8 + 20 + 18), 44
+    k = 1.25 if small else 1.6
     sw, sh = bw * k, bh * k
-    bx, by = (pw - sw) / 2, 100
-    out.append(f'<g transform="translate({bx:.1f} {by}) scale({k})">{bbody}</g>')
-    # medidas: ancho arriba, alto a la izquierda, padding · ícono · separación · padding abajo
+    bx = (cvw - sw) / 2 if small else pad + 36
+    by = 104
+    list_x = pad if small else bx + sw + 40
+    list_w = cvw - pad - list_x
+    rows_y = by + sh + 66 if small else by + 4
+    canvas_h = max(rows_y + 3 * 32 + 12 + 32 + pad if small else 0, by + sh + 120)
+    if not small:
+        chat_h = canvas_h = max(chat_h, canvas_h)
+        # centra el bloque (etiqueta del componente → medidas de abajo) entre el título y el aviso
+        dy = round((pad + 24 + canvas_h - pad - 32) / 2 - (by - 42 + by + sh + 40) / 2)
+        by += dy
+        rows_y += dy
+    ox_, oy_ = (0, chat_h + 12) if small else (cpw + 16, 0)
+    fill = ink(ACCENT, "#FFFFFF")
+    cv = [f'<rect x=".5" y=".5" width="{cvw - 1:.1f}" height="{canvas_h - 1}" rx="16" fill="{t["surface"]}" stroke="{t["border"]}"/>',
+          f'<rect x="1" y="1" width="{cvw - 2:.1f}" height="{canvas_h - 2}" rx="15.5" fill="url(#cdots)"/>',
+          text(pad, pad + 12, "CANVAS", "mono", 11, t["muted"], ls=1.5),
+          text(cvw - pad, pad + 12, "Onboarding", "mono", 11, t["muted"], "end")]
+    cv.append(f'<g class="idle">{text(cvw / 2, canvas_h / 2, "waiting for the agent…", "mono", 11, t["muted"], "middle")}</g>')
+    comp = "Button / Primary"
+    cw_ = tw(comp, 10, "semibold") + 18
+    cv.append(f'<g class="bcomp"><rect x="{bx - 4:.1f}" y="{by - 4}" width="{sw + 8:.1f}" height="{sh + 8:.1f}" rx="{12 * k + 4:.1f}" stroke="{COMPONENT}" stroke-width="1.5"/>'
+              f'<rect x="{bx - 4:.1f}" y="{by - 42}" width="{cw_:.0f}" height="15" rx="4" fill="{COMPONENT}"/>'
+              + diamond(bx - 1, by - 39.5, 10, "#fff") + text(bx + 12, by - 31.5, comp, "semibold", 10, "#fff") + "</g>")
+    cv.append(f"""<g transform="translate({bx:.1f} {by}) scale({k})">
+      <g class="bframe"><rect x=".5" y=".5" width="{bw - 1}" height="{bh - 1}" rx="12" stroke="{SELECT}" stroke-dasharray="4 3"/></g>
+      <g class="bfill"><rect width="{bw}" height="{bh}" rx="12" fill="{fill}"/></g>
+      <g class="blabel">{text(18, 27.5, label, "semibold", 14, "#fff")}
+        <g transform="translate({18 + lw + 8:.1f} 12)">{GLYPHS["arrow"].format(c="#fff")}</g></g>
+    </g>""")
+    # medidas
     rl = [f'<path d="M{bx:.1f} {by - 14}H{bx + sw:.1f}M{bx:.1f} {by - 18}v8M{bx + sw:.1f} {by - 18}v8'
           f'M{bx - 14:.1f} {by}V{by + sh:.1f}M{bx - 18:.1f} {by}h8M{bx - 18:.1f} {by + sh:.1f}h8" stroke="{REDLINE}"/>',
           redline_pill(bx + sw / 2, by - 14, str(bw)), redline_pill(bx - 14, by + sh / 2, str(bh))]
-    text_end = 46 + tw(label, 14, "semibold")
     yb = by + sh + 14
-    for a, b, s in [(0, 18, "18"), (18, 38, "20"), (38, 46, "8"), (text_end, bw, f"{bw - text_end:.0f}")]:
-        x0, x1 = bx + a * k, bx + b * k
+    segs = [(0, 18, "18"), (18, 18 + lw, f"{lw:.0f}"), (18 + lw, 26 + lw, "8"), (26 + lw, 46 + lw, "20"), (46 + lw, bw, "18")]
+    for i, (s0, s1, s) in enumerate(segs):
+        x0, x1 = bx + s0 * k, bx + s1 * k
         rl.append(f'<path d="M{x0 + 1:.1f} {yb}H{x1 - 1:.1f}M{x0 + 1:.1f} {yb - 4}v8M{x1 - 1:.1f} {yb - 4}v8" stroke="{REDLINE}"/>'
-                  + redline_pill((x0 + x1) / 2, yb + 15, s))
-    r = RADIUS["md"] * k
-    rl.append(f'<path d="M{bx + sw - r:.1f} {by - 4}a{r + 4:.1f} {r + 4:.1f} 0 0 1 {r + 4:.1f} {r + 4:.1f}" stroke="{REDLINE}" stroke-dasharray="2 2"/>'
-              + redline_pill(bx + sw + 22, by + r + 6, f"r {RADIUS['md']}"))
-    out.append(f'<g class="rl">{"".join(rl)}</g>')
-    # leyenda de tokens
-    y = yb + 48
-    legend = [(ink(ACCENT, "#FFFFFF"), "fill", "brand/primary-ink"), ("#FFFFFF", "label", "text/on-brand"),
-              (None, "radius", f"radius/md · {RADIUS['md']}")]
+                  + redline_pill((x0 + x1) / 2, yb + 15 + (i % 2) * 17, s))  # alternadas para que no se pisen
+    cv.append(f'<g class="bred">{"".join(rl)}</g>')
+    # tokens que el agente enlaza
+    legend = [(fill, "fill", "brand/primary-ink"), ("#FFFFFF", "label", "text/on-brand"), (None, "radius", f"radius/md · {RADIUS['md']}")]
     for i, (c, name, token) in enumerate(legend):
-        yy = y + i * 24
-        if c:
-            out.append(f'<rect x="{pad}" y="{yy - 10}" width="12" height="12" rx="3" fill="{c}" stroke="{t["border"]}"/>')
-        else:
-            out.append(f'<path d="M{pad} {yy + 2}V{yy - 4}a6 6 0 0 1 6-6h6" stroke="{t["muted"]}" stroke-width="1.5"/>')
-        out.append(text(pad + 22, yy, name, "mono", 10.5, t["muted"]))
-        out.append(text(pw - pad, yy, token, "mono", 10.5, t["fg"], "end"))
-    return "".join(out), y + 2 * 24 + pad - 4
+        ry = rows_y + i * 32
+        row = (f'<rect x="{list_x:.1f}" y="{ry}" width="{list_w:.1f}" height="26" rx="8" fill="{t["raised"]}" stroke="{t["border"]}"/>'
+               + (f'<rect x="{list_x + 8:.1f}" y="{ry + 7}" width="12" height="12" rx="3" fill="{c}" stroke="{t["border"]}"/>' if c else
+                  f'<path d="M{list_x + 9:.1f} {ry + 19}v-5a5 5 0 0 1 5-5h5" stroke="{t["muted"]}" stroke-width="1.5"/>')
+               + text(list_x + 28, ry + 17, name, "mono", 10.5, t["muted"])
+               + text(list_x + list_w - 10, ry + 17, token, "mono", 10.5, t["fg"], "end"))
+        if not small:
+            row += (f'<path d="M{bx + sw + 6:.1f} {by + sh * (.25 + .25 * i):.1f}L{list_x - 4:.1f} {ry + 13}" '
+                    f'stroke="{COMPONENT}" stroke-dasharray="2 3"/><circle cx="{bx + sw + 6:.1f}" cy="{by + sh * (.25 + .25 * i):.1f}" r="2.5" fill="{COMPONENT}"/>')
+        cv.append(f'<g class="tk{i}">{row}</g>')
+    toast_y = canvas_h - pad - 32
+    cv.append(f'<g class="toast"><rect x="{pad}" y="{toast_y}" width="{cvw - 2 * pad:.1f}" height="32" rx="10" fill="{t["raised"]}" stroke="{t["border"]}"/>'
+              f'<circle cx="{pad + 18}" cy="{toast_y + 16}" r="7" fill="{green}"/>'
+              f'<path d="M{pad + 15} {toast_y + 16}l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'
+              + text(pad + 32, toast_y + 20.5, "Published to library", "semibold", 12, t["fg"])
+              + text(cvw - pad - 12, toast_y + 20.5, "v1.0", "mono", 10.5, t["muted"], "end") + "</g>")
+
+    # cursor de Jorge: descansa arriba a la derecha del chat y baja a elegir la opción
+    rest = (cpw - 84, pad)
+    for cls, at in [("m1", 3), ("m2", 15), ("m3", 24), ("pick", 37), ("bfill", 46), ("blabel", 50), ("bred", 55),
+                    ("tk0", 58), ("tk1", 61), ("tk2", 64), ("bcomp", 69), ("m4", 70), ("toast", 72)]:
+        appear(cls, at)
+    anim("dots", "0%,6%{opacity:0}8%,14%{opacity:1}15.5%,100%{opacity:0}")
+    anim("idle", "0%,36%{opacity:1}39%,97%{opacity:0}100%{opacity:1}")
+    anim("bframe", "0%,39%{opacity:0;transform:scaleX(0)}40%{opacity:1;transform:scaleX(0)}45%,94%{opacity:1;transform:scaleX(1)}"
+                   "97%,100%{opacity:0;transform:scaleX(1)}", "cubic-bezier(.45,0,.2,1)")
+    anim("cur", f"0%,28%{{transform:translate(0,0)}}34%,46%{{transform:translate({tap[0] - rest[0]:.0f}px,{tap[1] - rest[1]:.0f}px)}}"
+                f"54%,100%{{transform:translate(0,0)}}", "cubic-bezier(.45,0,.2,1)")
+    anim("ctap", "0%,35%{opacity:0;transform:scale(.4)}36%{opacity:1;transform:scale(.4)}40%,100%{opacity:0;transform:scale(1.6)}")
+    css.append(".dots,.ctap,.idle{opacity:0}.bframe{transform-box:fill-box;transform-origin:0 0}"
+               ".ctap{transform-box:fill-box;transform-origin:center}"
+               ".dt{animation:dt 1s ease-in-out infinite}@keyframes dt{0%,60%,100%{transform:none}30%{transform:translateY(-3px)}}")
+    body = f"""
+    <defs><pattern id="cdots" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".9" fill="{t["dot"]}"/></pattern></defs>
+    <rect x=".5" y=".5" width="{cpw - 1}" height="{chat_h - 1}" rx="16" fill="{t["surface"]}" stroke="{t["border"]}"/>
+    {"".join(chat)}
+    <g transform="translate({ox_} {oy_})">{"".join(cv)}</g>
+    <g transform="translate({rest[0]} {rest[1]})"><g class="cur">{cursor(SELECT, "Jorge", t)}</g></g>
+    """
+    h = chat_h + 12 + canvas_h if small else canvas_h
+    title = f'Agentic design system: "{a["prompt"]}" → the agent asks "{a["question"]}" → {a["done"]}'
+    return w, round(h), body, "".join(css), title
 
 
-def tokens(t, w=W):
-    """Hoja de especificaciones del propio perfil: colores con su contraste WCAG, escala tipográfica
-    y la anatomía del botón principal. Todo sale de las mismas constantes que dibujan el resto."""
-    small = w < 500
-    cols, gap, tile = (2, 12, 32) if small else (6, 12, 52)  # en el celular la muestra es más baja
-    ch, d = tile + 72, tile - 52
-    cw = (w - gap * (cols - 1)) / cols
-    css = (".pop{animation:pop .5s cubic-bezier(.2,.8,.2,1) both;transform-box:fill-box;transform-origin:center}"
-           "@keyframes pop{from{opacity:0;transform:scale(.92)}}"
-           ".rl{animation:rl .6s ease-out 1s both}@keyframes rl{from{opacity:0}}")
-    out = [text(0, 14, "COLOR", "mono", 11, t["muted"], ls=1.5),
-           text(w, 14, "WCAG contrast", "mono", 11, t["muted"], "end")]
-    sw = swatch_list(t)
-    for i, (name, color, (pair, against)) in enumerate(sw):
-        x, y = (i % cols) * (cw + gap), 28 + (i // cols) * (ch + gap)
-        ratio = contrast(color, against)
-        level, dot = (("AA", "#1F883D") if ratio >= 4.5 else ("AA lg", "#BF8700") if ratio >= 3
-                      else ("deco", t["muted"]))
+def exploring(t, w=W):
+    """Cada tema se «dibuja» como un rectángulo en Figma: el cursor arrastra el contorno y luego aparece el texto.
+    12 s en bucle; el primer cuadro ya muestra todos los temas."""
+    size = 14 if w > 500 else 13
+    rows = flow_chips(CONTENT["exploring"], w - 8, size, gap=10, pad=46)
+    chips = []
+    for r, row in enumerate(rows):
+        x0 = (w - (row[-1][0] + row[-1][1])) / 2  # cada fila centrada
+        for x, cw, label in row:
+            chips.append((x + x0, 10 + r * 46, cw, label))
+    cycle, delay = 12, -6.6
+    starts = [4 + i * 9 for i in range(len(chips))]
+    ease = "cubic-bezier(.45,0,.2,1)"
+    rx_, ry_ = chips[-1][0] + chips[-1][2], chips[-1][1] + 35  # el cursor descansa al final del último
+    rel = lambda x, y: f"transform:translate({x - rx_:.0f}px,{y - ry_:.0f}px)"
+    path = [f"0%,{starts[0]}%{{{rel(chips[0][0], chips[0][1])}}}"]
+    css, out = [], []
+    for i, ((x, y, cw, label), s) in enumerate(zip(chips, starts)):
+        if i:
+            path.append(f"{s}%{{{rel(x, y)}}}")
+        path.append(f"{s + 5}%{{{rel(x + cw, y + 35)}}}")
+        css.append(f".ex{i}{{animation:ex{i} {cycle}s {ease} {delay}s infinite;transform-box:fill-box;transform-origin:0 0}}"
+                   f"@keyframes ex{i}{{0%,{s - .1:.1f}%{{opacity:0;transform:scale(.02)}}{s}%{{opacity:1;transform:scale(.02)}}"
+                   f"{s + 5}%,92%{{opacity:1;transform:scale(1)}}96%,100%{{opacity:0;transform:scale(1)}}}}"
+                   f".xs{i}{{opacity:0;animation:xs{i} {cycle}s {delay}s infinite}}"
+                   f"@keyframes xs{i}{{0%,{s - .1:.1f}%{{opacity:0}}{s}%,{s + 6}%{{opacity:1}}{s + 8}%,100%{{opacity:0}}}}"
+                   f".et{i}{{animation:et{i} {cycle}s {delay}s infinite}}"
+                   f"@keyframes et{i}{{0%,{s + 5}%{{opacity:0}}{s + 7}%,92%{{opacity:1}}96%,100%{{opacity:0}}}}")
         out.append(f"""
-        <g class="pop" style="animation-delay:{i * .08:.2f}s"><g transform="translate({x:.1f} {y})">
-          <rect x=".5" y=".5" width="{cw - 1:.1f}" height="{ch - 1}" rx="{RADIUS["lg"]}" fill="{t["surface"]}" stroke="{t["border"]}"/>
-          <rect x="6" y="6" width="{cw - 12:.1f}" height="{tile}" rx="10" fill="{color}" stroke="#000" stroke-opacity=".08"/>
-          {text(12, 80 + d, name, "mono", 10.5, t["fg"])}
-          {text(12, 97 + d, color.upper(), "mono", 10.5, t["muted"])}
-          <circle cx="15" cy="{110 + d}" r="3" fill="{ink(dot, t["surface"], 3)}"/>
-          {text(23, 113.5 + d, f"{int(ratio * 10) / 10:.1f}:1 {level} · {pair}", "mono", 9.5, t["muted"])}
-        </g></g>""")
-    y = 28 + -(-len(sw) // cols) * (ch + gap) + 4
-    pw = w if small else (w - 16) / 2
-    panels = [type_panel(t, pw), anatomy_panel(t, pw)]
-    ph = max(h for _, h in panels)
-    for i, (body, h) in enumerate(panels):
-        x = 0 if small else i * (pw + 16)
-        hh = h if small else ph
-        out.append(f'<g transform="translate({x:.1f} {y})"><rect x=".5" y=".5" width="{pw - 1:.1f}" height="{hh - 1}" '
-                   f'rx="{RADIUS["lg"]}" fill="{t["surface"]}" stroke="{t["border"]}"/>{body}</g>')
-        y += hh + 16 if small else 0
-    h = y - 16 if small else y + ph
-    title = ("Design tokens: " + ", ".join(f"{n} {c}" for n, c, _ in sw)
-             + "; type scale Inter Tight and Inter; anatomy of Button / Primary")
-    return w, round(h), "".join(out), css, title
+        <g class="ex{i}">
+          <rect x="{x + .5:.1f}" y="{y + .5}" width="{cw - 1:.1f}" height="35" rx="17.5" fill="{t["surface"]}" stroke="{t["border"]}"/>
+          <rect class="xs{i}" x="{x + .5:.1f}" y="{y + .5}" width="{cw - 1:.1f}" height="35" rx="17.5" stroke="{SELECT}" stroke-width="1.5"/>
+        </g>
+        <g class="et{i}">
+          <circle cx="{x + 20:.1f}" cy="{y + 18}" r="4" fill="{ACCENT}"/>
+          {text(x + 32, y + 23, label, "medium", size, t["fg"])}
+        </g>""")
+    path.append(f"92%{{transform:translate(0,0)}}100%{{{rel(chips[0][0], chips[0][1])}}}")
+    css.append(f".cur{{animation:cur {cycle}s {ease} {delay}s infinite}}@keyframes cur{{{''.join(path)}}}")
+    out.append(f'<g transform="translate({rx_:.1f} {ry_})"><g class="cur">{cursor(SELECT, "Jorge", t)}</g></g>')
+    h = ry_ + 44
+    return w, round(h), "".join(out), "".join(css), "Currently exploring: " + ", ".join(CONTENT["exploring"])
+
 
 
 def export_tokens():
@@ -1058,12 +1239,13 @@ def readme(sections):
             out.append(block(cards))
         elif key == "h-workflow":
             out.append(block(picture("workflow", "My workflow: " + " → ".join(f"{w[1]} ({w[2]})" for w in c["workflow"]))))
-        elif key == "h-tokens":
-            out.append(block(picture("tokens", "Design tokens: brand, Figma and text colors with WCAG contrast; "
-                                     "type scale; anatomy of Button / Primary")))
-            out.append('<p align="center"><sub>The tokens behind this page, exported as '
-                       '<a href="./tokens.json"><code>tokens.json</code></a> (W3C Design Tokens format) '
-                       'by the same script that draws it.</sub></p>\n')
+        elif key == "h-system":
+            a = c["agent"]
+            out.append(block(picture("system", f'Agentic design system: "{a["prompt"]}" — the agent finds the tokens, '
+                                               f'asks "{a["question"]}", builds the component and publishes it')))
+            out.append('<p align="center"><sub>A concept I\'m exploring: an agent that builds with the design system '
+                       'and asks before it decides. The tokens it uses are real — the same ones that draw this page, '
+                       'exported to <a href="./tokens.json"><code>tokens.json</code></a>.</sub></p>\n')
         elif key == "h-exploring":
             out.append(block(picture("exploring", "Currently exploring: " + ", ".join(c["exploring"]))))
         out.append("<br>\n")
@@ -1078,7 +1260,7 @@ def main():
     sections = [("h-about", "About me", "/about")]
     if CONTENT["work"]:
         sections.append(("h-work", "Selected work", "/work"))
-    sections += [("h-workflow", "My design workflow", "/stack"), ("h-tokens", "Design tokens", "/tokens"),
+    sections += [("h-workflow", "My design workflow", "/stack"), ("h-system", "Agentic design system", "/system"),
                  ("h-exploring", "Currently exploring", "/now")]
     sections = [(key, f"{i + 1:02d}", title, slug) for i, (key, title, slug) in enumerate(sections)]
 
@@ -1087,14 +1269,14 @@ def main():
         "about": (about,),
         "workflow": (workflow,),
         "exploring": (exploring,),
-        "tokens": (tokens,),
+        "system": (agentic,),
         "footer": (footer,),
         **{key: (header, num, title, slug) for key, num, title, slug in sections},
         **{f"work-{i + 1}": (work_card, i) for i in range(len(CONTENT["work"]))},
         **{f"link-{i + 1}": (button, label, glyph, i == 0) for i, (label, _, glyph) in enumerate(CONTENT["links"])},
     }
     mobile = {"banner": (banner_mobile,), "about": (about, MW), "workflow": (workflow, MW),
-              "exploring": (exploring, MW), "tokens": (tokens, MW), "footer": (footer, MW),
+              "exploring": (exploring, MW), "system": (agentic, MW), "footer": (footer, MW),
               **{key: (header, num, title, slug, MW) for key, num, title, slug in sections}}
     written = set()
     for key, (piece, *args) in pieces.items():

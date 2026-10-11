@@ -5,11 +5,11 @@
 -->
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="./assets/banner-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/banner-dark.svg"><img alt="Jorge Alberto Ramos Tellez — Product Designer · Cybernetics Engineer · UI/UX · Design Systems · DesignOps · AI-assisted design" src="./assets/banner-light.svg" width="100%"></picture>
+  <picture><source media="(max-width: 600px)" srcset="./assets/banner-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/banner-dark.svg"><img alt="Jorge Alberto Ramos Tellez — Product Designer · Cybernetics Engineer · UI/UX · Design Systems · Design Engineering · AI-assisted" src="./assets/banner-light.svg" width="100%"></picture>
 </p>
 
 <p align="center">
-  <a href="mailto:jorgeramos201003@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/link-1-dark.svg"><img alt="Email" src="./assets/link-1-light.svg"></picture></a>
+  <a href="https://github.com/JorgeRamos-UX/Portafolio-UX"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/link-1-dark.svg"><img alt="Portfolio" src="./assets/link-1-light.svg"></picture></a>
   <a href="https://www.linkedin.com/in/jorge-ramos-tellez"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/link-2-dark.svg"><img alt="LinkedIn" src="./assets/link-2-light.svg"></picture></a>
 </p>
 
@@ -19,10 +19,10 @@
   <picture><source media="(max-width: 600px)" srcset="./assets/h-about-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/h-about-dark.svg"><img alt="01 · About me" src="./assets/h-about-light.svg" width="100%"></picture>
 </p>
 
-I'm a **Product Designer and Cybernetics Engineer** working in the **financial sector**, where I combine UX, UI, product thinking and design operations to turn complex problems into clear, scalable experiences.
+I'm a **Product Designer and Design Engineer** with a background in **Cybernetics Engineering**. I design digital products end to end — research, flows, interfaces and design systems — and use AI and code to take ideas from first sketch to something real.
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="./assets/about-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/about-dark.svg"><img alt="Product Design &amp; UI/UX · Design Systems &amp; DesignOps · UX Research &amp; IA · AI-assisted Design" src="./assets/about-light.svg" width="100%"></picture>
+  <picture><source media="(max-width: 600px)" srcset="./assets/about-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/about-dark.svg"><img alt="Product Design &amp; UI/UX · Design Systems &amp; DesignOps · UX Research &amp; IA · AI &amp; Design Engineering" src="./assets/about-light.svg" width="100%"></picture>
 </p>
 
 <br>
@@ -38,14 +38,14 @@ I'm a **Product Designer and Cybernetics Engineer** working in the **financial s
 <br>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="./assets/h-tokens-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/h-tokens-dark.svg"><img alt="03 · Design tokens" src="./assets/h-tokens-light.svg" width="100%"></picture>
+  <picture><source media="(max-width: 600px)" srcset="./assets/h-system-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/h-system-dark.svg"><img alt="03 · Agentic design system" src="./assets/h-system-light.svg" width="100%"></picture>
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="./assets/tokens-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/tokens-dark.svg"><img alt="Design tokens: brand, Figma and text colors with WCAG contrast; type scale; anatomy of Button / Primary" src="./assets/tokens-light.svg" width="100%"></picture>
+  <picture><source media="(max-width: 600px)" srcset="./assets/system-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/system-dark.svg"><img alt="Agentic design system: &quot;Create a primary button for the onboarding screen&quot; — the agent finds the tokens, asks &quot;Which size should it use?&quot;, builds the component and publishes it" src="./assets/system-light.svg" width="100%"></picture>
 </p>
 
-<p align="center"><sub>The tokens behind this page, exported as <a href="./tokens.json"><code>tokens.json</code></a> (W3C Design Tokens format) by the same script that draws it.</sub></p>
+<p align="center"><sub>A concept I'm exploring: an agent that builds with the design system and asks before it decides. The tokens it uses are real — the same ones that draw this page, exported to <a href="./tokens.json"><code>tokens.json</code></a>.</sub></p>
 
 <br>
 
@@ -54,7 +54,7 @@ I'm a **Product Designer and Cybernetics Engineer** working in the **financial s
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="./assets/exploring-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/exploring-dark.svg"><img alt="Currently exploring: Product design strategy, Human-Computer Interaction, AI + Product Design, Design-to-code" src="./assets/exploring-light.svg" width="100%"></picture>
+  <picture><source media="(max-width: 600px)" srcset="./assets/exploring-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/exploring-dark.svg"><img alt="Currently exploring: Product design strategy, Human-Computer Interaction, Agentic design systems, AI + Product Design, Design-to-code" src="./assets/exploring-light.svg" width="100%"></picture>
 </p>
 
 <br>
