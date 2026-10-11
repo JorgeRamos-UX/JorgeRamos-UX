@@ -11,6 +11,7 @@ Las descargas se guardan en assets/src/ (ignorado por git).
 import base64
 import datetime
 import hashlib
+import json
 import os
 import re
 import struct
@@ -26,11 +27,12 @@ CACHE = os.path.join(ASSETS, "src")
 CONTENT = {
     "name": ["Jorge Alberto", "Ramos Tellez"],
     "overline": "PRODUCT DESIGNER · CYBERNETICS ENGINEER",
-    "role_tag": "Product Designer",
+    "role_tag": "Design Engineer",
     "chips": [("#F24E1E", "UI/UX"), ("#A259FF", "Design Systems"), ("#1ABCFE", "DesignOps"), ("#D97757", "AI-assisted design")],
     "links": [  # (etiqueta, url, glifo). El primero se dibuja como botón principal.
         ("Email", "mailto:jorgeramos201003@gmail.com", "mail"),
         ("LinkedIn", "https://www.linkedin.com/in/jorge-ramos-tellez", "linkedin"),
+        # ("Portfolio", "https://…", "globe"),  # descomenta cuando tu portafolio esté publicado
     ],
     "intro": ("I'm a **Product Designer and Cybernetics Engineer** working in the **financial sector**, where I combine "
               "UX, UI, product thinking and design operations to turn complex problems into clear, scalable experiences."),
@@ -65,7 +67,7 @@ CONTENT = {
     "signature": "designed in figma · built with claude · versioned with git",
     # Pantalla de ejemplo dentro del banner
     "mock": {"screen": "Transfer", "balance_label": "Available balance", "balance": "$4,280.50",
-             "cta": "Send money", "component": "Button / Primary", "token": "brand/primary",
+             "cta_before": "Submit", "cta": "Send money", "component": "Button / Primary", "token": "brand/primary",
              "comment": ["“Send money” reads clearer", "than “Submit” here."]},
 }
 
@@ -80,6 +82,7 @@ ACCENT = "#D97757"     # Claude
 SELECT = "#0D99FF"     # selección de Figma
 COMPONENT = "#9747FF"  # instancias de componente en Figma
 REDLINE = "#F24822"    # medidas de Figma
+RADIUS = {"sm": 7, "md": 12, "lg": 16, "xl": 20}  # etiquetas · botones · tarjetas · banner
 W = 900   # ancho de escritorio (GitHub muestra el README a 846 px)
 MW = 360  # ancho móvil (GitHub muestra el README a ~293 px en un teléfono)
 
@@ -302,6 +305,8 @@ GLYPHS = {
     "mail": '<rect x="2" y="4" width="16" height="12" rx="3" stroke="{c}" stroke-width="1.8"/><path d="M3 6l7 5 7-5" stroke="{c}" stroke-width="1.8" stroke-linejoin="round"/>',
     "linkedin": ('<rect x="2" y="2" width="16" height="16" rx="4" fill="{c}"/>'
                  '<path d="M6.5 8.5v5.5M6.5 6v.01M9.5 14V8.5M9.5 11c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6V14" stroke="{bg}" stroke-width="1.7" stroke-linecap="round"/>'),
+    "globe": ('<circle cx="10" cy="10" r="7.5" stroke="{c}" stroke-width="1.8"/>'
+              '<path d="M2.5 10h15M10 2.5c2.2 2.1 3.2 4.6 3.2 7.5s-1 5.4-3.2 7.5c-2.2-2.1-3.2-4.6-3.2-7.5s1-5.4 3.2-7.5z" stroke="{c}" stroke-width="1.6" stroke-linejoin="round"/>'),
 }
 
 CURSOR = "M0 0L0 17L4.6 12.8L7.6 19.6L10.4 18.4L7.4 11.6L13.6 11.4Z"
@@ -377,7 +382,9 @@ def phone(t, px, py):
       {text(16, 166, "Recent", "semibold", 10, t["muted"])}
       {row_svg}
       <rect x="12" y="242" width="152" height="38" rx="12" fill="{t["fg"]}"/>
-      {text(88, 265, m["cta"], "semibold", 12, t["bg"], "middle")}
+      <g class="cta-old">{text(88, 265, m["cta_before"], "semibold", 12, t["bg"], "middle")}</g>
+      <g class="cta-new">{text(88, 265, m["cta"], "semibold", 12, t["bg"], "middle")}</g>
+      <rect class="swap" x="10" y="240" width="156" height="42" rx="13" stroke="{ACCENT}" stroke-width="2"/>
       <circle class="tap" cx="100" cy="261" r="14" fill="{SELECT}" fill-opacity=".3"/>
       <rect x="64" y="286" width="48" height="4" rx="2" fill="{t["muted"]}" fill-opacity=".45"/>
       <g class="comp">
@@ -471,7 +478,14 @@ def banner(t):
     @keyframes type{{0%,60%{{transform:translateX(-100%)}}76%,100%{{transform:translateX(0)}}}}
     .tok{{animation:tok 14s infinite}} @keyframes tok{{0%,4%{{opacity:0}}8%,96%{{opacity:1}}100%{{opacity:0}}}}
     .type{{transform-box:fill-box}}
+    .cta-old,.swap{{opacity:0}}
+    .cta-old{{animation:ctaold 14s infinite}} @keyframes ctaold{{0%,76%{{opacity:1}}78%,97%{{opacity:0}}99%,100%{{opacity:1}}}}
+    .cta-new{{animation:ctanew 14s infinite}} @keyframes ctanew{{0%,77%{{opacity:0}}79%,96%{{opacity:1}}98%,100%{{opacity:0}}}}
+    .swap{{animation:swap 14s infinite}} @keyframes swap{{0%,77%{{opacity:0}}79%{{opacity:1}}88%,100%{{opacity:0}}}}
+    .me,.ai,.red,.comp,.tap,.bubble,.type,.tok,.cta-old,.cta-new,.swap{{animation-delay:-11.5s}}
     """
+    # sin animación queda el final de la historia: comentario de Claude y el botón ya con «Send money».
+    # El retraso negativo hace que el primer cuadro sea ese mismo estado completo y luego repita la historia.
     body = f"""
     <defs>
       <pattern id="dots" x="22" y="22" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.2" fill="{t["dot"]}"/></pattern>
@@ -613,13 +627,14 @@ def about(t, w=W):
     cols, gap = (2, 16) if w > 500 else (1, 12)
     cw = (w - gap * (cols - 1)) / cols
     pad, size, lh = (24, 15, 23) if cols == 2 else (20, 15, 22)
+    # se mueven unas pocas veces y se quedan quietas: el banner es la única animación continua
     css = """
-    .ico-pen{animation:pen 3.2s ease-in-out infinite}
+    .ico-pen{animation:pen 3.2s ease-in-out 3}
     @keyframes pen{0%,100%{transform:translate(0,0)}25%{transform:translate(-2px,1.5px)}50%{transform:translate(1.5px,-1px)}75%{transform:translate(2px,1.5px)}}
-    .cmp{animation:cmp 2.4s ease-in-out infinite} @keyframes cmp{0%,100%{opacity:1}50%{opacity:.25}}
-    .ico-search{animation:scan 3.4s ease-in-out infinite}
+    .cmp{animation:cmp 2.4s ease-in-out 3} @keyframes cmp{0%,100%{opacity:1}50%{opacity:.25}}
+    .ico-search{animation:scan 3.4s ease-in-out 3}
     @keyframes scan{0%,100%{transform:translate(0,0)}33%{transform:translate(2.5px,-2px)}66%{transform:translate(-2px,1.5px)}}
-    .ico-sparkle{animation:twinkle 2.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+    .ico-sparkle{animation:twinkle 2.8s ease-in-out 3;transform-box:fill-box;transform-origin:center}
     @keyframes twinkle{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(.78) rotate(45deg)}}
     """
     wrapped = [wrap(a[3], cw - 2 * pad, "regular", size) for a in CONTENT["about"]]
@@ -778,22 +793,159 @@ def work_card(t, i):
 
 
 def exploring(t, w=W):
-    css = (".live{animation:live 2s ease-out infinite;transform-box:fill-box;transform-origin:center}"
+    css = (".live{animation:live 2s ease-out 4 both;transform-box:fill-box;transform-origin:center}"
            "@keyframes live{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(2.6)}}")
     size = 14 if w > 500 else 13
     rows = flow_chips(CONTENT["exploring"], w, size, gap=10, pad=46)
-    out = []
+    out, k = [], 0
     for r, row in enumerate(rows):
         x0 = (w - (row[-1][0] + row[-1][1])) / 2  # cada fila centrada
         y = 10 + r * 46
         for x, cw, label in row:
             x += x0
+            k += 1
             out.append(f"""
             <rect x="{x + .5:.1f}" y="{y + .5}" width="{cw - 1:.1f}" height="35" rx="17.5" fill="{t["surface"]}" stroke="{t["border"]}"/>
-            <circle class="live" cx="{x + 20:.1f}" cy="{y + 18}" r="4" fill="{ACCENT}"/>
+            <circle class="live" style="animation-delay:{(k - 1) * .5:.1f}s" cx="{x + 20:.1f}" cy="{y + 18}" r="4" fill="{ACCENT}"/>
             <circle cx="{x + 20:.1f}" cy="{y + 18}" r="4" fill="{ACCENT}"/>
             {text(x + 32, y + 23, label, "medium", size, t["fg"])}""")
     return w, 10 + len(rows) * 46, "".join(out), css, "Currently exploring: " + ", ".join(CONTENT["exploring"])
+
+
+def swatch_list(t):
+    """Colores de la sección de tokens: (nombre, valor, contra qué se mide su contraste).
+    brand/primary-ink existe para llevar texto blanco en los botones, así que se mide contra blanco."""
+    canvas = ("canvas", t["bg"])
+    return [("brand/primary", ACCENT, canvas), ("brand/primary-ink", ink(ACCENT, "#FFFFFF"), ("white", "#FFFFFF")),
+            ("figma/select", SELECT, canvas), ("figma/component", COMPONENT, canvas),
+            ("figma/redline", REDLINE, canvas), ("text/primary", t["fg"], canvas)]
+
+
+def redline_pill(cx, cy, s):
+    pw = tw(s, 9.5, "bold") + 10
+    return (f'<rect x="{cx - pw / 2:.1f}" y="{cy - 7}" width="{pw:.1f}" height="14" rx="3" fill="{REDLINE}"/>'
+            + text(cx, cy + 3.5, s, "bold", 9.5, "#fff", "middle"))
+
+
+def type_panel(t, pw):
+    pad = 20
+    out = [text(pad, pad + 12, "TYPE SCALE", "mono", 11, t["muted"], ls=1.5)]
+    rows = [("display", 56, -1.6, CONTENT["name"][0].split()[0]), ("bold", 24, -.4, "About me"),
+            ("regular", 15, 0, "Clear, scalable experiences"), ("mono", 12, 0, CONTENT["mock"]["token"])]
+    y = pad + 32
+    for k, (font, size, ls, sample) in enumerate(rows):
+        family, weight, _ = FONTS[font]
+        base = y + size * .8 + 8
+        out.append(text(pad, base, sample, font, size, t["fg"], ls=ls))
+        out.append(text(pw - pad, base, f"{size} · {family} {weight}", "mono", 10.5, t["muted"], "end"))
+        y = base + 14
+        if k < len(rows) - 1:
+            out.append(f'<path d="M{pad} {y + .5}H{pw - pad:.0f}" stroke="{t["border"]}" stroke-dasharray="2 4"/>')
+            y += 10
+    return "".join(out), y + pad - 4
+
+
+def anatomy_panel(t, pw):
+    """El botón principal del perfil, ampliado, con medidas de Figma y los tokens que usa."""
+    pad, k = 20, 1.75
+    label, _, glyph = CONTENT["links"][0]
+    bw, bh, bbody, _, _ = button(t, label, glyph, True)
+    comp = "Button / Primary"
+    cw = tw(comp, 10, "semibold") + 18
+    out = [text(pad, pad + 12, "COMPONENT ANATOMY", "mono", 11, t["muted"], ls=1.5),
+           f'<rect x="{pad}" y="{pad + 24}" width="{cw:.0f}" height="15" rx="4" fill="{COMPONENT}"/>',
+           diamond(pad + 3, pad + 26.5, 10, "#fff"), text(pad + 16, pad + 34.5, comp, "semibold", 10, "#fff")]
+    sw, sh = bw * k, bh * k
+    bx, by = (pw - sw) / 2, 100
+    out.append(f'<g transform="translate({bx:.1f} {by}) scale({k})">{bbody}</g>')
+    # medidas: ancho arriba, alto a la izquierda, padding · ícono · separación · padding abajo
+    rl = [f'<path d="M{bx:.1f} {by - 14}H{bx + sw:.1f}M{bx:.1f} {by - 18}v8M{bx + sw:.1f} {by - 18}v8'
+          f'M{bx - 14:.1f} {by}V{by + sh:.1f}M{bx - 18:.1f} {by}h8M{bx - 18:.1f} {by + sh:.1f}h8" stroke="{REDLINE}"/>',
+          redline_pill(bx + sw / 2, by - 14, str(bw)), redline_pill(bx - 14, by + sh / 2, str(bh))]
+    text_end = 46 + tw(label, 14, "semibold")
+    yb = by + sh + 14
+    for a, b, s in [(0, 18, "18"), (18, 38, "20"), (38, 46, "8"), (text_end, bw, f"{bw - text_end:.0f}")]:
+        x0, x1 = bx + a * k, bx + b * k
+        rl.append(f'<path d="M{x0 + 1:.1f} {yb}H{x1 - 1:.1f}M{x0 + 1:.1f} {yb - 4}v8M{x1 - 1:.1f} {yb - 4}v8" stroke="{REDLINE}"/>'
+                  + redline_pill((x0 + x1) / 2, yb + 15, s))
+    r = RADIUS["md"] * k
+    rl.append(f'<path d="M{bx + sw - r:.1f} {by - 4}a{r + 4:.1f} {r + 4:.1f} 0 0 1 {r + 4:.1f} {r + 4:.1f}" stroke="{REDLINE}" stroke-dasharray="2 2"/>'
+              + redline_pill(bx + sw + 22, by + r + 6, f"r {RADIUS['md']}"))
+    out.append(f'<g class="rl">{"".join(rl)}</g>')
+    # leyenda de tokens
+    y = yb + 48
+    legend = [(ink(ACCENT, "#FFFFFF"), "fill", "brand/primary-ink"), ("#FFFFFF", "label", "text/on-brand"),
+              (None, "radius", f"radius/md · {RADIUS['md']}")]
+    for i, (c, name, token) in enumerate(legend):
+        yy = y + i * 24
+        if c:
+            out.append(f'<rect x="{pad}" y="{yy - 10}" width="12" height="12" rx="3" fill="{c}" stroke="{t["border"]}"/>')
+        else:
+            out.append(f'<path d="M{pad} {yy + 2}V{yy - 4}a6 6 0 0 1 6-6h6" stroke="{t["muted"]}" stroke-width="1.5"/>')
+        out.append(text(pad + 22, yy, name, "mono", 10.5, t["muted"]))
+        out.append(text(pw - pad, yy, token, "mono", 10.5, t["fg"], "end"))
+    return "".join(out), y + 2 * 24 + pad - 4
+
+
+def tokens(t, w=W):
+    """Hoja de especificaciones del propio perfil: colores con su contraste WCAG, escala tipográfica
+    y la anatomía del botón principal. Todo sale de las mismas constantes que dibujan el resto."""
+    small = w < 500
+    cols, gap, tile = (2, 12, 32) if small else (6, 12, 52)  # en el celular la muestra es más baja
+    ch, d = tile + 72, tile - 52
+    cw = (w - gap * (cols - 1)) / cols
+    css = (".pop{animation:pop .5s cubic-bezier(.2,.8,.2,1) both;transform-box:fill-box;transform-origin:center}"
+           "@keyframes pop{from{opacity:0;transform:scale(.92)}}"
+           ".rl{animation:rl .6s ease-out 1s both}@keyframes rl{from{opacity:0}}")
+    out = [text(0, 14, "COLOR", "mono", 11, t["muted"], ls=1.5),
+           text(w, 14, "WCAG contrast", "mono", 11, t["muted"], "end")]
+    sw = swatch_list(t)
+    for i, (name, color, (pair, against)) in enumerate(sw):
+        x, y = (i % cols) * (cw + gap), 28 + (i // cols) * (ch + gap)
+        ratio = contrast(color, against)
+        level, dot = (("AA", "#1F883D") if ratio >= 4.5 else ("AA lg", "#BF8700") if ratio >= 3
+                      else ("deco", t["muted"]))
+        out.append(f"""
+        <g class="pop" style="animation-delay:{i * .08:.2f}s"><g transform="translate({x:.1f} {y})">
+          <rect x=".5" y=".5" width="{cw - 1:.1f}" height="{ch - 1}" rx="{RADIUS["lg"]}" fill="{t["surface"]}" stroke="{t["border"]}"/>
+          <rect x="6" y="6" width="{cw - 12:.1f}" height="{tile}" rx="10" fill="{color}" stroke="#000" stroke-opacity=".08"/>
+          {text(12, 80 + d, name, "mono", 10.5, t["fg"])}
+          {text(12, 97 + d, color.upper(), "mono", 10.5, t["muted"])}
+          <circle cx="15" cy="{110 + d}" r="3" fill="{ink(dot, t["surface"], 3)}"/>
+          {text(23, 113.5 + d, f"{int(ratio * 10) / 10:.1f}:1 {level} · {pair}", "mono", 9.5, t["muted"])}
+        </g></g>""")
+    y = 28 + -(-len(sw) // cols) * (ch + gap) + 4
+    pw = w if small else (w - 16) / 2
+    panels = [type_panel(t, pw), anatomy_panel(t, pw)]
+    ph = max(h for _, h in panels)
+    for i, (body, h) in enumerate(panels):
+        x = 0 if small else i * (pw + 16)
+        hh = h if small else ph
+        out.append(f'<g transform="translate({x:.1f} {y})"><rect x=".5" y=".5" width="{pw - 1:.1f}" height="{hh - 1}" '
+                   f'rx="{RADIUS["lg"]}" fill="{t["surface"]}" stroke="{t["border"]}"/>{body}</g>')
+        y += hh + 16 if small else 0
+    h = y - 16 if small else y + ph
+    title = ("Design tokens: " + ", ".join(f"{n} {c}" for n, c, _ in sw)
+             + "; type scale Inter Tight and Inter; anatomy of Button / Primary")
+    return w, round(h), "".join(out), css, title
+
+
+def export_tokens():
+    """tokens.json en formato W3C Design Tokens, con los mismos valores que dibujan el perfil."""
+    col = lambda v: {"$type": "color", "$value": v}
+    data = {
+        "color": {
+            "brand": {"primary": col(ACCENT), "primary-ink": col(ink(ACCENT, "#FFFFFF"))},
+            "figma": {"select": col(SELECT), "component": col(COMPONENT), "redline": col(REDLINE)},
+            **{name: {k: col(v) for k, v in t.items() if v.startswith("#")} for name, t in THEMES.items()},
+        },
+        "font": {k: {"$type": "typography", "$value": {"fontFamily": f, "fontWeight": wgt}}
+                 for k, (f, wgt, _) in FONTS.items()},
+        "radius": {k: {"$type": "dimension", "$value": f"{v}px"} for k, v in RADIUS.items()},
+    }
+    with open(os.path.join(ROOT, "tokens.json"), "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+        f.write("\n")
 
 
 def plain(s):
@@ -890,7 +1042,8 @@ def readme(sections):
     links = "\n  ".join(f'<a href="{url}">{picture(f"link-{i + 1}", label, None, False)}</a>'
                         for i, (label, url, _) in enumerate(c["links"]))
     out = ["<!--\n  Archivo generado por build.py: no lo edites a mano.\n"
-           "  Para cambiar textos o enlaces, edita CONTENT en build.py y ejecuta  python3 build.py\n-->\n",
+           "  Para cambiar textos o enlaces, edita CONTENT en build.py: GitHub Actions lo regenera solo\n"
+           "  (o ejecútalo tú con  python3 build.py)\n-->\n",
            block(picture("banner", f'{" ".join(c["name"])} — {c["overline"].title()} · '
                          + " · ".join(l for _, l in c["chips"]))),
            block(links), "<br>\n"]
@@ -905,6 +1058,12 @@ def readme(sections):
             out.append(block(cards))
         elif key == "h-workflow":
             out.append(block(picture("workflow", "My workflow: " + " → ".join(f"{w[1]} ({w[2]})" for w in c["workflow"]))))
+        elif key == "h-tokens":
+            out.append(block(picture("tokens", "Design tokens: brand, Figma and text colors with WCAG contrast; "
+                                     "type scale; anatomy of Button / Primary")))
+            out.append('<p align="center"><sub>The tokens behind this page, exported as '
+                       '<a href="./tokens.json"><code>tokens.json</code></a> (W3C Design Tokens format) '
+                       'by the same script that draws it.</sub></p>\n')
         elif key == "h-exploring":
             out.append(block(picture("exploring", "Currently exploring: " + ", ".join(c["exploring"]))))
         out.append("<br>\n")
@@ -919,7 +1078,8 @@ def main():
     sections = [("h-about", "About me", "/about")]
     if CONTENT["work"]:
         sections.append(("h-work", "Selected work", "/work"))
-    sections += [("h-workflow", "My design workflow", "/stack"), ("h-exploring", "Currently exploring", "/now")]
+    sections += [("h-workflow", "My design workflow", "/stack"), ("h-tokens", "Design tokens", "/tokens"),
+                 ("h-exploring", "Currently exploring", "/now")]
     sections = [(key, f"{i + 1:02d}", title, slug) for i, (key, title, slug) in enumerate(sections)]
 
     pieces = {
@@ -927,31 +1087,33 @@ def main():
         "about": (about,),
         "workflow": (workflow,),
         "exploring": (exploring,),
+        "tokens": (tokens,),
         "footer": (footer,),
         **{key: (header, num, title, slug) for key, num, title, slug in sections},
         **{f"work-{i + 1}": (work_card, i) for i in range(len(CONTENT["work"]))},
         **{f"link-{i + 1}": (button, label, glyph, i == 0) for i, (label, _, glyph) in enumerate(CONTENT["links"])},
     }
     mobile = {"banner": (banner_mobile,), "about": (about, MW), "workflow": (workflow, MW),
-              "exploring": (exploring, MW), "footer": (footer, MW),
+              "exploring": (exploring, MW), "tokens": (tokens, MW), "footer": (footer, MW),
               **{key: (header, num, title, slug, MW) for key, num, title, slug in sections}}
     written = set()
     for key, (piece, *args) in pieces.items():
         for name, t in THEMES.items():
             written.add(f"{key}-{name}.svg")
-            with open(os.path.join(ASSETS, f"{key}-{name}.svg"), "w") as f:
+            with open(os.path.join(ASSETS, f"{key}-{name}.svg"), "w", encoding="utf-8") as f:
                 f.write(svg(*piece(dict(t, name=name), *args)))
     for key, (piece, *args) in mobile.items():
         written.add(f"{key}-mobile.svg")
-        with open(os.path.join(ASSETS, f"{key}-mobile.svg"), "w") as f:
+        with open(os.path.join(ASSETS, f"{key}-mobile.svg"), "w", encoding="utf-8") as f:
             f.write(dual(piece, *args))
     # borra SVG generados que ya no corresponden (p. ej. una sección que se quitó)
     for old in os.listdir(ASSETS):
         if old.endswith(".svg") and old not in written:
             os.remove(os.path.join(ASSETS, old))
 
-    with open(os.path.join(ROOT, "README.md"), "w") as f:
+    with open(os.path.join(ROOT, "README.md"), "w", encoding="utf-8") as f:
         f.write(readme(sections))
+    export_tokens()
     print("SVGs generados en", ASSETS, "y README.md actualizado")
 
 

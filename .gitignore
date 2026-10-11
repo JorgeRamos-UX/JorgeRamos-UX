@@ -1,0 +1,7 @@
+# fuentes e íconos descargados por build.py (se vuelven a bajar solos)
+assets/src/
+__pycache__/
+.DS_Store
+# herramientas locales de vista previa
+preview.html
+.claude/

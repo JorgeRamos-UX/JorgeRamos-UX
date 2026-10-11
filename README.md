@@ -1,6 +1,7 @@
 <!--
   Archivo generado por build.py: no lo edites a mano.
-  Para cambiar textos o enlaces, edita CONTENT en build.py y ejecuta  python3 build.py
+  Para cambiar textos o enlaces, edita CONTENT en build.py: GitHub Actions lo regenera solo
+  (o ejecútalo tú con  python3 build.py)
 -->
 
 <p align="center">
@@ -37,7 +38,19 @@ I'm a **Product Designer and Cybernetics Engineer** working in the **financial s
 <br>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="./assets/h-exploring-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/h-exploring-dark.svg"><img alt="03 · Currently exploring" src="./assets/h-exploring-light.svg" width="100%"></picture>
+  <picture><source media="(max-width: 600px)" srcset="./assets/h-tokens-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/h-tokens-dark.svg"><img alt="03 · Design tokens" src="./assets/h-tokens-light.svg" width="100%"></picture>
+</p>
+
+<p align="center">
+  <picture><source media="(max-width: 600px)" srcset="./assets/tokens-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/tokens-dark.svg"><img alt="Design tokens: brand, Figma and text colors with WCAG contrast; type scale; anatomy of Button / Primary" src="./assets/tokens-light.svg" width="100%"></picture>
+</p>
+
+<p align="center"><sub>The tokens behind this page, exported as <a href="./tokens.json"><code>tokens.json</code></a> (W3C Design Tokens format) by the same script that draws it.</sub></p>
+
+<br>
+
+<p align="center">
+  <picture><source media="(max-width: 600px)" srcset="./assets/h-exploring-mobile.svg"><source media="(prefers-color-scheme: dark)" srcset="./assets/h-exploring-dark.svg"><img alt="04 · Currently exploring" src="./assets/h-exploring-light.svg" width="100%"></picture>
 </p>
 
 <p align="center">
