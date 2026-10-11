@@ -112,7 +112,12 @@ FONTS = {  # clave: (familia en Google Fonts, peso, pila de respaldo)
 def fetch(url, path=None):
     # UA neutro: Google Fonts responde TTF (no woff2), que es lo que sabemos medir
     req = urllib.request.Request(url, headers={"User-Agent": "curl/8 (profile-readme build)"})
-    data = urllib.request.urlopen(req, timeout=30).read()  # descarga antes de abrir: sin archivos vacíos si falla
+    try:
+        data = urllib.request.urlopen(req, timeout=30).read()  # descarga antes de abrir: sin archivos vacíos si falla
+    except OSError as e:
+        # «::error::» lo muestra GitHub Actions como anotación, visible sin iniciar sesión
+        print(f"::error::No se pudo descargar {url} ({e})")
+        raise SystemExit(1)
     if path:
         with open(path, "wb") as f:
             f.write(data)
