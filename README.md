@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/JorgeRamos-UX/Portafolio-UX"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/link-1-dark.svg"><img alt="Portfolio" src="./assets/link-1-light.svg"></picture></a>
-  <a href="https://www.linkedin.com/in/jorge-ramos-tellez"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/link-2-dark.svg"><img alt="LinkedIn" src="./assets/link-2-light.svg"></picture></a>
+  <a href="https://www.linkedin.com/in/jorge-ramos-tellez"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/link-1-dark.svg"><img alt="LinkedIn" src="./assets/link-1-light.svg"></picture></a>
+  <a href="https://github.com/JorgeRamos-UX/Portafolio-UX"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/link-2-dark.svg"><img alt="Portfolio (work in progress)" src="./assets/link-2-light.svg"></picture></a>
 </p>
 
 <br>

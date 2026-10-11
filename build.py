@@ -29,10 +29,10 @@ CONTENT = {
     "overline": "PRODUCT DESIGNER · CYBERNETICS ENGINEER",
     "role_tag": "Design Engineer",
     "chips": [("#F24E1E", "UI/UX"), ("#A259FF", "Design Systems"), ("#1ABCFE", "Design Engineering"), ("#D97757", "AI-assisted")],
-    "links": [  # (etiqueta, url, glifo). El primero se dibuja como botón principal.
-        # TENTATIVO: cambia la URL cuando tu portafolio esté publicado
-        ("Portfolio", "https://github.com/JorgeRamos-UX/Portafolio-UX", "globe"),
+    "links": [  # (etiqueta, url, glifo, insignia opcional). El primero se dibuja como botón principal.
         ("LinkedIn", "https://www.linkedin.com/in/jorge-ramos-tellez", "linkedin"),
+        # cuando el portafolio esté publicado: cambia la URL, quita "WIP" y súbelo al primer lugar
+        ("Portfolio", "https://github.com/JorgeRamos-UX/Portafolio-UX", "globe", "WIP"),
     ],
     "intro": ("I'm a **Product Designer and Design Engineer** with a background in **Cybernetics Engineering**. "
               "I design digital products end to end — research, flows, interfaces and design systems — and use AI "
@@ -638,18 +638,26 @@ def banner_mobile(t):
 
 # --------------------------------------------------------------------- piezas
 # Cada pieza devuelve (ancho, alto, cuerpo, css, título); svg() o dual() la convierten en archivo.
-def button(t, label, glyph, primary):
+def button(t, label, glyph, primary, badge=None):
     h = 44
-    w = round(tw(label, 14, "semibold") + 64)
+    lw = tw(label, 14, "semibold")
+    bw = tw(badge, 10, "mono", 1) + 14 if badge else 0
+    w = round(lw + 64 + (bw + 8 if badge else 0))
     # el naranja de marca no llega a AA con texto blanco: se usa su versión más oscura
     fill, fg = (ink(ACCENT, "#FFFFFF"), "#FFFFFF") if primary else (t["surface"], t["fg"])
     stroke = "" if primary else f' stroke="{t["border"]}"'
+    pill = ""
+    if badge:  # p. ej. «WIP»: algo que todavía se está construyendo
+        tint = mix(ACCENT, fill, .16)
+        pill = (f'<rect x="{46 + lw + 8:.1f}" y="12" width="{bw:.1f}" height="20" rx="6" fill="{tint}" stroke="{ACCENT}" stroke-opacity=".5" stroke-dasharray="3 2"/>'
+                + text(46 + lw + 8 + bw / 2, 26, badge, "mono", 10, ink(ACCENT, tint), "middle", ls=1))
     body = f"""
     <rect x=".5" y=".5" width="{w - 1}" height="{h - 1}" rx="12" fill="{fill}"{stroke}/>
     <g transform="translate(18 12)">{GLYPHS[glyph].format(c=fg, bg=fill)}</g>
     {text(46, 27, label, "semibold", 14, fg)}
+    {pill}
     """
-    return w, h, body, "", label
+    return w, h, body, "", f"{label} ({badge})" if badge else label
 
 
 def header(t, num, title, slug, w=W):
@@ -1220,8 +1228,8 @@ def block(inner):
 
 def readme(sections):
     c = CONTENT
-    links = "\n  ".join(f'<a href="{url}">{picture(f"link-{i + 1}", label, None, False)}</a>'
-                        for i, (label, url, _) in enumerate(c["links"]))
+    links = "\n  ".join(f'<a href="{url}">{picture(f"link-{i + 1}", label + (" (work in progress)" if rest[1:] else ""), None, False)}</a>'
+                        for i, (label, url, *rest) in enumerate(c["links"]))
     out = ["<!--\n  Archivo generado por build.py: no lo edites a mano.\n"
            "  Para cambiar textos o enlaces, edita CONTENT en build.py: GitHub Actions lo regenera solo\n"
            "  (o ejecútalo tú con  python3 build.py)\n-->\n",
@@ -1273,7 +1281,8 @@ def main():
         "footer": (footer,),
         **{key: (header, num, title, slug) for key, num, title, slug in sections},
         **{f"work-{i + 1}": (work_card, i) for i in range(len(CONTENT["work"]))},
-        **{f"link-{i + 1}": (button, label, glyph, i == 0) for i, (label, _, glyph) in enumerate(CONTENT["links"])},
+        **{f"link-{i + 1}": (button, label, glyph, i == 0, *badge)
+           for i, (label, _, glyph, *badge) in enumerate(CONTENT["links"])},
     }
     mobile = {"banner": (banner_mobile,), "about": (about, MW), "workflow": (workflow, MW),
               "exploring": (exploring, MW), "system": (agentic, MW), "footer": (footer, MW),
