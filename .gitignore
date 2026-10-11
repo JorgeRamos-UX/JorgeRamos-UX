@@ -1,5 +1,7 @@
-# fuentes e íconos descargados por build.py (se vuelven a bajar solos)
-assets/src/
+# fuentes descargadas por build.py (se vuelven a bajar solas). Los íconos sí se guardan:
+# simpleicons.org bloquea los servidores de GitHub Actions (HTTP 403)
+assets/src/*
+!assets/src/*.svg
 __pycache__/
 .DS_Store
 # herramientas locales de vista previa
