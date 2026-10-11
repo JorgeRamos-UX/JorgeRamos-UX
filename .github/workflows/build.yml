@@ -6,7 +6,7 @@ name: Build profile
 on:
   push:
     branches: [main]
-    paths: [build.py]
+    paths: [build.py, assets/src/**, .github/workflows/build.yml]
   workflow_dispatch:
   schedule:
     - cron: "0 12 1 * *"
